@@ -16,9 +16,8 @@
 
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import { readJsonInTree } from '@nrwl/workspace';
 import { createEmptyWorkspace } from '@nrwl/workspace/testing';
-import * as path from 'path';
+import { join } from 'path';
 import { readFileFromTree } from '../../utils';
 
 describe('Update 7.0.0', () => {
@@ -30,7 +29,7 @@ describe('Update 7.0.0', () => {
 
     schematicRunner = new SchematicTestRunner(
       '@dynatrace/barista-components/schematics',
-      path.join(__dirname, '../../../migrations.json'),
+      join(__dirname, '../../../migrations.json'),
     );
 
     initialTree.overwrite(
@@ -56,11 +55,14 @@ describe('Update 7.0.0', () => {
         dependencies: {},
       }),
     );
-    const result = await schematicRunner
-      .runSchematicAsync('update-7-0-0', {}, initialTree)
-      .toPromise();
+    const result = await schematicRunner.runSchematic(
+      'update-7-0-0',
+      {},
+      initialTree,
+    );
 
-    const { dependencies } = readJsonInTree(result, '/package.json');
+    const packageJson = result.get('./package.json');
+    const { dependencies } = JSON.parse(packageJson?.content.toString() ?? '');
     expect(dependencies).toEqual({
       '@dynatrace/barista-components': '^7.0.0',
       '@dynatrace/barista-icons': '^5.0.0',
@@ -69,13 +71,15 @@ describe('Update 7.0.0', () => {
   });
 
   it('should update the dependencies with highcharts and remove the highcharts types', async () => {
-    const result = await schematicRunner
-      .runSchematicAsync('update-7-0-0', {}, initialTree)
-      .toPromise();
+    const result = await schematicRunner.runSchematic(
+      'update-7-0-0',
+      {},
+      initialTree,
+    );
 
-    const { dependencies, devDependencies } = readJsonInTree(
-      result,
-      '/package.json',
+    const packageJson = result.get('./package.json');
+    const { dependencies, devDependencies } = JSON.parse(
+      packageJson?.content.toString() ?? '',
     );
     expect(dependencies).toEqual({
       '@dynatrace/barista-components': '^7.0.0',
@@ -135,9 +139,12 @@ describe('Update 7.0.0', () => {
     templateReplacements.forEach(({ description, fileName }) => {
       it(description, async () => {
         initialTree = Tree.merge(initialTree, addHTMLFiles());
-        const result = await schematicRunner
-          .runSchematicAsync('update-7-0-0', {}, initialTree)
-          .toPromise();
+        const result = await schematicRunner.runSchematic(
+          'update-7-0-0',
+          {},
+          initialTree,
+        );
+
         const file = readFileFromTree(result, fileName);
 
         expect(file).toMatchSnapshot();
