@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { axeCheck, createReport } from 'axe-testcafe';
+import { axeCheck, createReport } from '@testcafe-community/axe';
 import { DT_DEMOS_EXAMPLE_NAV_ITEMS } from './nav-items';
 
 const rules = require('../rules.a11y.json');
