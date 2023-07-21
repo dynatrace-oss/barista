@@ -45,12 +45,14 @@
   "author": "Dynatrace",
   "license": "SEE LICENSE IN LICENSE",
   "browserslist": [
-    "last 1 year",
-    "chrome >= 51",
-    "firefox >= 54",
-    "edge >= 15",
-    "safari >= 10",
-    "last 2 and_chr version"
+    "last 20 Chrome major versions",
+    "last 1 ChromeAndroid major version",
+    "Firefox ESR",
+    "last 8 Firefox major versions",
+    "last 20 Edge major versions",
+    "last 2 Safari major versions",
+    "last 2 iOS major versions",
+    "not dead"
   ],
   "engines": {
     "node": ">=18.10"
@@ -146,7 +148,7 @@
     "eslint": "8.15.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-header": "^3.1.1",
-    "eslint-plugin-jsdoc": "^37.9.1",
+    "eslint-plugin-jsdoc": "^46.0.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-react": "^7.28.0",
     "express": "^4.17.2",
