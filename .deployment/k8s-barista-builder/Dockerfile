@@ -1,9 +1,9 @@
-ARG NODE_VERSION=14
+ARG NODE_VERSION=18
 ARG BASE_VERSION=latest
 # Will be set on Jenkins
 ARG BASE_IMAGE_REGISTRY
 
-FROM node:14-alpine as base
+FROM node:18-alpine as base
 
 # The root of the monorepo
 WORKDIR /dynatrace
@@ -99,7 +99,7 @@ ARG NODE_VERSION
 
 RUN apt-get -y update; apt-get -y install curl
 
-RUN  curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - \
+RUN  curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash - \
   && apt-get update \
   && apt-get install -y libgtk-3-0 libasound2 libxss1 nodejs pv \
   && apt-get clean \
