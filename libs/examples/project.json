@@ -1,0 +1,28 @@
+{
+  "name": "examples",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/examples/src",
+  "prefix": "dynatrace",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/examples/src/**/*.ts",
+          "libs/examples/src/**/*.html"
+        ]
+      }
+    },
+    "lint-styles": {
+      "executor": "./dist/libs/workspace:stylelint",
+      "options": {
+        "stylelintConfig": ".stylelintrc",
+        "reportFile": "dist/stylelint/report.xml",
+        "exclude": ["**/node_modules/**"],
+        "files": ["libs/examples/src/**/*.scss"]
+      }
+    }
+  },
+  "tags": ["scope:examples", "type:library"]
+}

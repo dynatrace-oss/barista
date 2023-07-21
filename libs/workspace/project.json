@@ -1,0 +1,59 @@
+{
+  "name": "workspace",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/workspace",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/workspace/src/**/*.ts",
+          "libs/workspace/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/workspace/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/workspace"]
+    },
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "options": {
+        "outputPath": "dist/libs/workspace",
+        "main": "libs/workspace/src/index.ts",
+        "tsConfig": "libs/workspace/tsconfig.lib.json",
+        "webpackConfig": "libs/workspace/webpack.config.js",
+        "maxWorkers": 6,
+        "progress": false,
+        "assets": [
+          {
+            "input": "./libs/workspace/src",
+            "glob": "**/*.{json,md}",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/workspace",
+            "glob": "{package,builders,collection}.json",
+            "output": "."
+          }
+        ],
+        "buildLibsFromSource": true,
+        "target": "node",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "watch": {
+          "watch": true
+        }
+      },
+      "outputs": ["{options.outputPath}"]
+    }
+  },
+  "tags": ["type:tooling"]
+}

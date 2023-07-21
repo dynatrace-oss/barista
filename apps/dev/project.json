@@ -1,0 +1,84 @@
+{
+  "name": "dev",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/dev/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/dev",
+        "tsConfig": "apps/dev/tsconfig.app.json",
+        "index": "apps/dev/src/index.html",
+        "main": "apps/dev/src/main.ts",
+        "polyfills": "apps/dev/src/polyfills.ts",
+        "progress": false,
+        "assets": [
+          {
+            "glob": "**",
+            "input": "libs/barista-components/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "**",
+            "input": "apps/dev/src/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "*.svg",
+            "input": "node_modules/@dynatrace/barista-icons",
+            "output": "/assets/icons"
+          },
+          {
+            "glob": "metadata.json",
+            "input": "node_modules/@dynatrace/barista-icons",
+            "output": "/assets/icons"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@dynatrace/barista-fonts/fonts/",
+            "output": "/fonts"
+          }
+        ],
+        "styles": [
+          "apps/dev/src/main.scss",
+          "libs/barista-components/style/index.scss"
+        ],
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "budgets": []
+        }
+      },
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": ""
+    },
+    "serve": {
+      "executor": "@angular-builders/custom-webpack:dev-server",
+      "options": {
+        "browserTarget": "dev:build",
+        "host": "0.0.0.0"
+      },
+      "configurations": {}
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "dev:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/dev/src/**/*.ts", "apps/dev/src/**/*.html"]
+      }
+    }
+  },
+  "tags": ["type:app"]
+}

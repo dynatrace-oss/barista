@@ -1,0 +1,180 @@
+{
+  "name": "universal",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/universal/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": true,
+        "commands": [
+          {
+            "command": "npx ng run universal:build-frontend:production"
+          },
+          {
+            "command": "npx ng run universal:build-server"
+          }
+        ]
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "build-frontend": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/universal/browser",
+        "index": "apps/universal/src/index.html",
+        "main": "apps/universal/src/main.ts",
+        "polyfills": "apps/universal/src/polyfills.ts",
+        "tsConfig": "apps/universal/tsconfig.app.json",
+        "progress": false,
+        "assets": [
+          {
+            "glob": "**",
+            "input": "libs/barista-components/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "*.svg",
+            "input": "node_modules/@dynatrace/barista-icons",
+            "output": "/assets/icons"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@dynatrace/barista-fonts/fonts/",
+            "output": "/fonts"
+          }
+        ],
+        "styles": ["libs/barista-components/style/index.scss"],
+        "scripts": [],
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "commonChunk": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true
+        }
+      },
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": ""
+    },
+    "build-server": {
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/universal/server",
+        "main": "apps/universal/src/server.ts",
+        "tsConfig": "apps/universal/tsconfig.server.json",
+        "progress": false,
+        "sourceMap": true,
+        "optimization": false
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media",
+          "sourceMap": false,
+          "optimization": true
+        }
+      },
+      "defaultConfiguration": "",
+      "production": {
+        "outputHashing": "media",
+        "sourceMap": false,
+        "optimization": true
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "universal:build-frontend"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/universal/src/**/*.ts",
+          "apps/universal/src/**/*.html"
+        ]
+      }
+    },
+    "lint-styles": {
+      "executor": "./dist/libs/workspace:stylelint",
+      "options": {
+        "stylelintConfig": ".stylelintrc",
+        "reportFile": "dist/stylelint/report.xml",
+        "exclude": ["**/node_modules/**"],
+        "files": ["apps/universal/src/**/*.scss"]
+      }
+    },
+    "serve-ssr": {
+      "executor": "@nguniversal/builders:ssr-dev-server",
+      "options": {
+        "browserTarget": "universal:build-frontend",
+        "serverTarget": "universal:build-server",
+        "progress": false
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "universal:build-frontend:production",
+          "serverTarget": "universal:build-server:production"
+        }
+      }
+    },
+    "prerender": {
+      "executor": "@nguniversal/builders:prerender",
+      "options": {
+        "browserTarget": "universal:build-frontend:production",
+        "serverTarget": "universal:build-server:production",
+        "routes": ["/"]
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "e2e": {
+      "executor": "@politie/angular-testcafe-builder:testcafe",
+      "options": {
+        "devServerTarget": "universal:serve-ssr",
+        "src": "apps/universal/src/**/*.{e2e,po}.ts",
+        "browsers": ["chrome"],
+        "reporters": [
+          {
+            "name": "spec"
+          },
+          {
+            "name": "xunit",
+            "output": "dist/universal/report.xml"
+          }
+        ],
+        "concurrency": 1,
+        "skipJsErrors": false
+      },
+      "configurations": {
+        "remote-pr": {
+          "browsers": ["browserstack:chrome"]
+        },
+        "ci": {
+          "browsers": ["chrome:headless"],
+          "concurrency": 5
+        },
+        "watch": {
+          "live": true
+        }
+      }
+    }
+  },
+  "tags": ["type:app"]
+}

@@ -4,6 +4,6 @@ export default {
   preset: '../../../jest.preset.js',
   coverageDirectory: '../../../coverage/components/schematics',
 
-  globals: { 'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' } },
+  globals: {},
   snapshotSerializers: ['jest-serializer-path'],
 };

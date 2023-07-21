@@ -275,7 +275,6 @@ export const routes: Routes = [
       paramsInheritanceStrategy: 'always',
       enableTracing: false,
       initialNavigation: 'enabledBlocking',
-      relativeLinkResolution: 'legacy',
     }),
   ],
   exports: [RouterModule],

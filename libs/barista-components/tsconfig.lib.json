@@ -4,11 +4,12 @@
     "outDir": "../../dist/out-tsc",
     "baseUrl": ".",
     "rootDirs": [".", "../../dist/libs/components"],
-    "target": "es2020",
+    "target": "ES2022",
     "declaration": true,
     "inlineSources": true,
     "types": [],
-    "lib": ["dom", "es2018"]
+    "lib": ["dom", "es2018"],
+    "useDefineForClassFields": false
   },
   "include": ["**/*.ts"]
 }

@@ -1,0 +1,26 @@
+{
+  "name": "tools-pull-request-labeler",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "tools/pull-request-labeler/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "tools/pull-request-labeler/src/**/*.ts",
+          "tools/pull-request-labeler/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "tools/pull-request-labeler/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/tools/pull-request-labeler"]
+    }
+  },
+  "tags": ["type:tooling"]
+}

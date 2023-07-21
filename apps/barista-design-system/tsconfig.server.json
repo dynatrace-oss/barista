@@ -5,7 +5,9 @@
     "module": "commonjs",
     "types": ["node"],
     "noUnusedLocals": false,
-    "noUnusedParameters": false
+    "noUnusedParameters": false,
+    "target": "ES2022",
+    "useDefineForClassFields": false
   },
   "files": ["src/main.server.ts", "src/server.ts"],
   "include": ["**/*.d.ts", "../../libs/examples/src/*/index.ts"],
