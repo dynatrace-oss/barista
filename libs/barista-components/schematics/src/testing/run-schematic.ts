@@ -27,7 +27,7 @@ export const testRunner = new SchematicTestRunner(
 );
 
 /** Runs a schematic */
-export async function runSchematic<T extends unknown>(
+export async function runSchematic<T extends object>(
   schematicName: string,
   options: T,
   tree: Tree,
@@ -38,7 +38,7 @@ export async function runSchematic<T extends unknown>(
 }
 
 /** Runs an external Schematic */
-export async function runExternalSchematic<T extends unknown>(
+export async function runExternalSchematic<T extends object>(
   collectionName: string,
   schematicName: string,
   options: T,

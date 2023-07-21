@@ -23,10 +23,7 @@ import {
 } from '../testing';
 import { readFileFromTree, readJsonFromTree } from '../utils';
 import { Schema } from './schema';
-import {
-  COULD_NOT_FIND_PROJECT_ERROR,
-  COULD_NOT_FIND_DEFAULT_PROJECT_ERROR,
-} from './rules';
+import { COULD_NOT_FIND_PROJECT_ERROR } from './rules';
 // use glob import for mocking
 import * as updateWorkspaceRule from './rules/update-workspace-rule';
 import * as schematics from '@angular-devkit/schematics/src/rules/schematic';
@@ -68,11 +65,11 @@ describe('Migrate existing angular-components to barista components', () => {
     externalSchematicsSpy.mockClear();
   });
 
-  it('should throw an error if no default project or project is provided', async () => {
+  it('should throw an error if no project is provided', async () => {
     try {
       await testNgAdd(tree);
     } catch (e) {
-      expect(e.message).toBe(COULD_NOT_FIND_DEFAULT_PROJECT_ERROR);
+      expect(e.message).toBe(COULD_NOT_FIND_PROJECT_ERROR('testProject'));
     } finally {
       expect.assertions(1);
     }
@@ -197,7 +194,9 @@ describe('New workspace', () => {
 
   it('should add the `@angular/animations` package with the same version as the `@angular/core` package when specified', async () => {
     await addFixtureToTree(tree, 'package-empty.json', '/package.json');
-    await testNgAdd(tree, { project: undefined });
+    // Angular 14 upgrade - Changed from a default project definition, as the default project is now
+    // defined in the nx.json and we cannot be sure that the library is used within a nrwl project.
+    await testNgAdd(tree, { project: 'myapp' });
     expect(readJsonFromTree(tree, '/package.json')).toMatchSnapshot();
   });
 
@@ -207,8 +206,9 @@ describe('New workspace', () => {
       'package-animations-existing.json',
       '/package.json',
     );
-
-    await testNgAdd(tree, { animations: true, project: undefined });
+    // Angular 14 upgrade - Changed from a default project definition, as the default project is now
+    // defined in the nx.json and we cannot be sure that the library is used within a nrwl project.
+    await testNgAdd(tree, { animations: true, project: 'myapp' });
 
     // check if the angular animations package is used more than once
     expect(
@@ -225,7 +225,9 @@ describe('New workspace', () => {
       '@angular/platform-browser-dynamic',
     );
 
-    await testNgAdd(tree, { project: undefined });
+    // Angular 14 upgrade - Changed from a default project definition, as the default project is now
+    // defined in the nx.json and we cannot be sure that the library is used within a nrwl project.
+    await testNgAdd(tree, { project: 'myapp' });
     expect(readJsonFromTree(tree, '/package.json')).toMatchSnapshot();
   });
 
@@ -240,8 +242,9 @@ describe('New workspace', () => {
             }),
           } as any),
       );
-
-    await testNgAdd(tree, { project: undefined, skipInstall: false });
+    // Angular 14 upgrade - Changed from a default project definition, as the default project is now
+    // defined in the nx.json and we cannot be sure that the library is used within a nrwl project.
+    await testNgAdd(tree, { project: 'myapp', skipInstall: false });
     expect(devkitTasksMock).toHaveBeenCalledTimes(1);
   });
 

@@ -354,7 +354,7 @@ class ComboboxInsideFormGroup {
   @ViewChild(FormGroupDirective)
   formGroupDirective: FormGroupDirective;
   @ViewChild(DtCombobox) combobox: DtCombobox<any>;
-  formControl = new FormControl(null, Validators.required);
+  formControl = new FormControl<string | null>(null, Validators.required);
   formGroup = new FormGroup({
     value: this.formControl,
   });
