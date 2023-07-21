@@ -44,8 +44,8 @@ import {
 } from '@dynatrace/barista-components/core';
 import {
   AbstractControl,
-  FormControl,
-  FormGroup,
+  UntypedFormControl,
+  UntypedFormGroup,
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
@@ -157,8 +157,8 @@ export class DtTagAdd implements OnDestroy, AfterContentInit {
   ];
 
   /** @internal the formGroup for the default form */
-  _defaultFormControl = new FormGroup({
-    tag: new FormControl('', [Validators.required]),
+  _defaultFormControl = new UntypedFormGroup({
+    tag: new UntypedFormControl('', [Validators.required]),
   });
 
   /** @internal Holds the current formGroup - either the default one or the custom form  */

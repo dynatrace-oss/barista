@@ -19,7 +19,6 @@ import {
   isCallExpression,
   isIdentifier,
   isObjectLiteralExpression,
-  isClassDeclaration,
   Decorator,
   ObjectLiteralExpression,
   CallExpression,
@@ -28,6 +27,8 @@ import {
   ScriptKind,
   createSourceFile,
   ClassDeclaration,
+  canHaveDecorators,
+  getDecorators,
 } from 'typescript';
 
 export enum AngularClassDecoratorName {
@@ -36,10 +37,16 @@ export enum AngularClassDecoratorName {
 }
 
 /** TODO */
-export function getClassDecorators(node: Node): Decorator[] {
-  return isClassDeclaration(node) && node.decorators && node.decorators.length
-    ? Array.from(node.decorators)
-    : [];
+export function getClassDecorators(node: Node): readonly Decorator[] {
+  if (canHaveDecorators(node)) {
+    const decorators = getDecorators(node);
+    if (decorators?.length) {
+      return decorators;
+    } else {
+      return [];
+    }
+  }
+  return [];
 }
 
 export function isAngularClassDecorator(

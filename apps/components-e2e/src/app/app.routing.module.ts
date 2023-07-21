@@ -274,7 +274,7 @@ export const routes: Routes = [
       anchorScrolling: 'enabled',
       paramsInheritanceStrategy: 'always',
       enableTracing: false,
-      initialNavigation: 'enabled',
+      initialNavigation: 'enabledBlocking',
       relativeLinkResolution: 'legacy',
     }),
   ],

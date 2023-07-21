@@ -10,7 +10,7 @@
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
+      "runner": "nx/tasks-runners/default",
       "options": {
         "cacheableOperations": ["build", "test", "lint", "e2e", "lint-styles"],
         "parallel": 3
@@ -20,18 +20,9 @@
   "affected": {
     "defaultBase": "master"
   },
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ]
-  },
   "cli": {
     "packageManager": "npm",
-    "analytics": false,
-    "defaultCollection": "@nrwl/angular"
+    "analytics": false
   },
   "generators": {
     "@schematics/angular:component": {
@@ -48,5 +39,11 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "dev"
+  "defaultProject": "dev",
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
+    }
+  }
 }

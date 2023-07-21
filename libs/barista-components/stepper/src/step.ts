@@ -28,7 +28,7 @@ import {
   SkipSelf,
   ViewEncapsulation,
 } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { UntypedFormControl, FormGroupDirective, NgForm } from '@angular/forms';
 
 import { ErrorStateMatcher } from '@dynatrace/barista-components/core';
 
@@ -61,7 +61,7 @@ export class DtStep extends CdkStep implements ErrorStateMatcher {
 
   /** Custom error state matcher that additionally checks for validity of interacted form. */
   isErrorState(
-    control: FormControl | null,
+    control: UntypedFormControl | null,
     form: FormGroupDirective | NgForm | null,
   ): boolean {
     const originalErrorState = this._errorStateMatcher.isErrorState(
