@@ -1,0 +1,39 @@
+{
+  "name": "breadcrumbs",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/barista-components/breadcrumbs/src",
+  "prefix": "dt",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/barista-components/breadcrumbs/src/**/*.ts",
+          "libs/barista-components/breadcrumbs/src/**/*.html"
+        ]
+      }
+    },
+    "lint-styles": {
+      "executor": "./dist/libs/workspace:stylelint",
+      "options": {
+        "stylelintConfig": ".stylelintrc",
+        "reportFile": "dist/stylelint/report.xml",
+        "exclude": ["**/node_modules/**"],
+        "files": ["libs/barista-components/breadcrumbs/src/**/*.scss"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/barista-components/breadcrumbs"
+      ],
+      "options": {
+        "jestConfig": "libs/barista-components/breadcrumbs/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "generators": {},
+  "tags": ["scope:components", "type:library"]
+}

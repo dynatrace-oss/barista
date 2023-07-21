@@ -1,0 +1,42 @@
+{
+  "name": "schematics",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/barista-components/schematics/src",
+  "targets": {
+    "build": {
+      "executor": "./dist/libs/workspace:typescript",
+      "options": {
+        "tsConfig": "libs/barista-components/schematics/tsconfig.lib.json",
+        "outDir": "dist/libs/components/schematics"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/barista-components/schematics/src/**/*.ts",
+          "libs/barista-components/schematics/src/**/*.html"
+        ]
+      }
+    },
+    "lint-styles": {
+      "executor": "./dist/libs/workspace:stylelint",
+      "options": {
+        "stylelintConfig": ".stylelintrc",
+        "reportFile": "dist/stylelint/report.xml",
+        "exclude": ["**/node_modules/**"],
+        "files": ["libs/barista-components/schematics/src/**/*.scss"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/barista-components/schematics/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/barista-components/schematics"]
+    }
+  },
+  "tags": ["scope:schematics", "type:library"]
+}

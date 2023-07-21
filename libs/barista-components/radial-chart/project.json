@@ -1,0 +1,39 @@
+{
+  "name": "radial-chart",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/barista-components/radial-chart/src",
+  "prefix": "dt",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/barista-components/radial-chart/src/**/*.ts",
+          "libs/barista-components/radial-chart/src/**/*.html"
+        ]
+      }
+    },
+    "lint-styles": {
+      "executor": "./dist/libs/workspace:stylelint",
+      "options": {
+        "stylelintConfig": ".stylelintrc",
+        "reportFile": "dist/stylelint/report.xml",
+        "exclude": ["**/node_modules/**"],
+        "files": ["libs/barista-components/radial-chart/src/**/*.scss"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/barista-components/radial-chart"
+      ],
+      "options": {
+        "jestConfig": "libs/barista-components/radial-chart/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "generators": {},
+  "tags": ["scope:components", "type:library"]
+}

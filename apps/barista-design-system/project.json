@@ -1,0 +1,253 @@
+{
+  "name": "barista-design-system",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/barista-design-system/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": false,
+        "commands": [
+          {
+            "command": "npx nx run barista-tools:execute"
+          },
+          {
+            "command": "npx nx run barista-design-system:static-pages"
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "commands": [
+            {
+              "command": "npx nx run barista-tools:execute"
+            },
+            {
+              "command": "npx nx run barista-design-system:static-pages:production"
+            }
+          ]
+        },
+        "production-internal": {
+          "commands": [
+            {
+              "command": "npx nx run barista-tools:execute"
+            },
+            {
+              "command": "npx nx run barista-design-system:static-pages:production-internal"
+            }
+          ]
+        }
+      }
+    },
+    "static-pages": {
+      "executor": "./dist/libs/workspace:build-barista",
+      "options": {
+        "browserTarget": "barista-design-system:build-frontend",
+        "serverTarget": "barista-design-system:build-server",
+        "outputPath": "dist/apps/barista-design-system/browser",
+        "routesFile": "dist/barista-data/routes.txt"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "barista-design-system:build-frontend:production",
+          "serverTarget": "barista-design-system:build-server:production"
+        },
+        "production-internal": {
+          "browserTarget": "barista-design-system:build-frontend:production-internal",
+          "serverTarget": "barista-design-system:build-server:production"
+        }
+      }
+    },
+    "build-frontend": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/barista-design-system/browser",
+        "tsConfig": "apps/barista-design-system/tsconfig.app.json",
+        "index": "apps/barista-design-system/src/index.html",
+        "main": "apps/barista-design-system/src/main.ts",
+        "polyfills": "apps/barista-design-system/src/polyfills.ts",
+        "progress": false,
+        "preserveSymlinks": true,
+        "assets": [
+          {
+            "glob": "**",
+            "input": "apps/barista-design-system/src/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "**",
+            "input": "libs/barista-components/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "**",
+            "input": "libs/examples/src/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "**",
+            "input": "apps/barista-design-system/src/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "*.svg",
+            "input": "node_modules/@dynatrace/barista-icons",
+            "output": "/assets/icons"
+          },
+          {
+            "glob": "metadata.json",
+            "input": "node_modules/@dynatrace/barista-icons",
+            "output": "/assets/icons"
+          },
+          {
+            "glob": "**/*.json",
+            "input": "dist/barista-data",
+            "output": "/data"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@dynatrace/barista-fonts/fonts/",
+            "output": "/assets/fonts"
+          },
+          {
+            "glob": "**",
+            "input": "libs/barista-components/assets/fonts/bitstream/",
+            "output": "/assets/fonts/bitstream"
+          }
+        ],
+        "styles": [
+          "node_modules/highlight-ts/styles/github-gist.css",
+          "libs/barista-components/style/main.scss",
+          "apps/barista-design-system/src/main.scss"
+        ],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/barista-components/core/src/style/"]
+        },
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "index": "apps/barista-design-system/src/environments/production/index.html",
+          "fileReplacements": [
+            {
+              "replace": "apps/barista-design-system/src/environments/environment.ts",
+              "with": "apps/barista-design-system/src/environments/environment.public.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "vendorChunk": false,
+          "statsJson": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            }
+          ]
+        },
+        "production-internal": {
+          "fileReplacements": [
+            {
+              "replace": "apps/barista-design-system/src/environments/environment.ts",
+              "with": "apps/barista-design-system/src/environments/environment.internal.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "vendorChunk": false,
+          "statsJson": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            }
+          ]
+        }
+      },
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": ""
+    },
+    "build-server": {
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/apps/barista-design-system/server",
+        "main": "apps/barista-design-system/src/server.ts",
+        "tsConfig": "apps/barista-design-system/tsconfig.server.json",
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/barista-components/core/src/style/"]
+        },
+        "preserveSymlinks": true,
+        "progress": false,
+        "sourceMap": true,
+        "optimization": false
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media",
+          "sourceMap": false,
+          "optimization": true
+        }
+      },
+      "defaultConfiguration": "",
+      "production": {
+        "outputHashing": "media",
+        "sourceMap": false,
+        "optimization": true
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "barista-design-system:build-frontend"
+      }
+    },
+    "serve-ssr": {
+      "executor": "@nguniversal/builders:ssr-dev-server",
+      "options": {
+        "browserTarget": "barista-design-system:build-frontend",
+        "serverTarget": "barista-design-system:build-server"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/barista-design-system/src/**/*.ts",
+          "apps/barista-design-system/src/**/*.html"
+        ]
+      }
+    },
+    "lint-styles": {
+      "executor": "./dist/libs/workspace:stylelint",
+      "options": {
+        "stylelintConfig": ".stylelintrc",
+        "reportFile": "dist/stylelint/report.xml",
+        "exclude": ["**/node_modules/**"],
+        "files": ["apps/barista-design-system/src/**/*.scss"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/barista-design-system/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/apps/barista-design-system"]
+    }
+  },
+  "//": "The order of the properties does matter! they are executed at build time from last to first.",
+  "tags": ["type:app"],
+  "implicitDependencies": ["barista-tools"]
+}

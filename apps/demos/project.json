@@ -1,0 +1,178 @@
+{
+  "name": "demos",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/demos/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": false,
+        "commands": [
+          {
+            "command": "npx ng run demos:build-frontend"
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "commands": [
+            {
+              "command": "npx ng run demos:build-frontend:production"
+            }
+          ]
+        }
+      }
+    },
+    "build-frontend": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/demos",
+        "tsConfig": "apps/demos/tsconfig.app.json",
+        "index": "apps/demos/src/index.html",
+        "main": "apps/demos/src/main.ts",
+        "progress": false,
+        "polyfills": "apps/demos/src/polyfills.ts",
+        "assets": [
+          {
+            "glob": "**",
+            "input": "libs/barista-components/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "**",
+            "input": "libs/examples/src/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "**",
+            "input": "apps/demos/src/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "*.svg",
+            "input": "node_modules/@dynatrace/barista-icons",
+            "output": "/assets/icons"
+          },
+          {
+            "glob": "metadata.json",
+            "input": "node_modules/@dynatrace/barista-icons",
+            "output": "/assets/icons"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@dynatrace/barista-fonts/fonts/",
+            "output": "/fonts"
+          }
+        ],
+        "styles": [
+          "apps/demos/src/main.scss",
+          "libs/barista-components/style/index.scss"
+        ],
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "budgets": [],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "vendorChunk": false,
+          "statsJson": true
+        }
+      },
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": ""
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "demos:build-frontend",
+        "host": "localhost"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/demos/src/**/*.ts",
+          "apps/demos/src/**/*.html"
+        ]
+      }
+    },
+    "lint-styles": {
+      "executor": "./dist/libs/workspace:stylelint",
+      "options": {
+        "stylelintConfig": ".stylelintrc",
+        "reportFile": "dist/stylelint/report.xml",
+        "exclude": ["**/node_modules/**"],
+        "files": ["apps/demos/src/**/*.scss"]
+      }
+    },
+    "a11y-tests": {
+      "executor": "@politie/angular-testcafe-builder:testcafe",
+      "options": {
+        "devServerTarget": "demos:serve",
+        "src": "apps/demos/src/**/*.a11y.ts",
+        "stopOnFirstFail": false,
+        "browsers": ["chrome"],
+        "reporters": [
+          {
+            "name": "spec"
+          },
+          {
+            "name": "xunit",
+            "output": "dist/demos-a11y/report.xml"
+          }
+        ],
+        "concurrency": 1,
+        "skipJsErrors": false
+      },
+      "configurations": {
+        "ci": {
+          "browsers": ["chrome:headless"],
+          "concurrency": 5
+        },
+        "watch": {
+          "browsers": ["chrome"],
+          "live": true,
+          "concurrency": 1
+        }
+      }
+    },
+    "a11y": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": false,
+        "commands": [
+          {
+            "command": "npx ng run demos:a11y-tests"
+          }
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "commands": [
+            {
+              "command": "npx ng run demos:a11y-tests:ci"
+            }
+          ]
+        },
+        "watch": {
+          "commands": [
+            {
+              "command": "npx ng run demos:a11y-tests:watch"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "tags": ["type:app"]
+}

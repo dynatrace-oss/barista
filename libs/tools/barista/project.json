@@ -1,0 +1,56 @@
+{
+  "name": "barista-tools",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/tools/barista/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "options": {
+        "outputPath": "dist/libs/tools/barista",
+        "main": "libs/tools/barista/src/main.ts",
+        "tsConfig": "libs/tools/barista/tsconfig.json",
+        "progress": false,
+        "optimization": true,
+        "maxWorkers": 6,
+        "buildLibsFromSource": true,
+        "target": "node",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "watch": {
+          "watch": true
+        }
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "execute": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "node dist/libs/tools/barista/main.js"
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/tools/barista/src/**/*.ts",
+          "libs/tools/barista/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/tools/barista/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/tools/barista"]
+    }
+  },
+  "tags": ["type:tooling"]
+}

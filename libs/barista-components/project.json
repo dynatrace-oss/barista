@@ -1,0 +1,107 @@
+{
+  "name": "components",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/barista-components",
+  "targets": {
+    "packagr": {
+      "executor": "@angular-devkit/build-angular:ng-packagr",
+      "options": {
+        "tsConfig": "libs/barista-components/tsconfig.lib.json",
+        "project": "libs/barista-components/ng-package.json"
+      }
+    },
+    "build": {
+      "executor": "./dist/libs/workspace:packager",
+      "options": {
+        "buildTarget": "packagr",
+        "releasePackageJson": "libs/barista-components/package.json",
+        "versionPlaceholder": "{{VERSION}}",
+        "ngVersionPlaceholder": "{{NG_VERSION}}",
+        "styles": [
+          {
+            "glob": "style/*.scss",
+            "input": "libs/barista-components",
+            "output": "dist/libs/components"
+          }
+        ],
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "libs/barista-components/assets",
+            "output": "dist/libs/components/assets"
+          }
+        ],
+        "additionalTargets": ["schematics:build"]
+      },
+      "configurations": {
+        "production": {}
+      }
+    }
+  },
+  "tags": ["scope:components"],
+  "implicitDependencies": [
+    "alert",
+    "autocomplete",
+    "bar-indicator",
+    "breadcrumbs",
+    "button",
+    "button-group",
+    "card",
+    "chart",
+    "checkbox",
+    "combobox",
+    "confirmation-dialog",
+    "consumption",
+    "container-breakpoint-observer",
+    "context-dialog",
+    "copy-to-clipboard",
+    "core",
+    "datepicker",
+    "drawer",
+    "drawer-table",
+    "empty-state",
+    "event-chart",
+    "expandable-panel",
+    "expandable-section",
+    "expandable-text",
+    "filter-field",
+    "form-field",
+    "formatters",
+    "highlight",
+    "icon",
+    "indicator",
+    "info-group",
+    "inline-editor",
+    "input",
+    "key-value-list",
+    "legend",
+    "loading-distractor",
+    "menu",
+    "micro-chart",
+    "overlay",
+    "pagination",
+    "progress-bar",
+    "progress-circle",
+    "radio",
+    "schematics",
+    "secondary-nav",
+    "select",
+    "slider",
+    "show-more",
+    "stacked-series-chart",
+    "stepper",
+    "sunburst-chart",
+    "switch",
+    "table",
+    "tabs",
+    "tag",
+    "theming",
+    "tile",
+    "timeline-chart",
+    "toast",
+    "toggle-button-group",
+    "top-bar-navigation",
+    "tree-table"
+  ]
+}

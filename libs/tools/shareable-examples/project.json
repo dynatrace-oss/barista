@@ -1,0 +1,42 @@
+{
+  "name": "tools-shareable-examples",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/tools/shareable-examples/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "options": {
+        "outputPath": "dist/libs/tools/shareable-examples",
+        "main": "libs/tools/shareable-examples/src/main.ts",
+        "tsConfig": "libs/tools/shareable-examples/tsconfig.lib.json",
+        "progress": false,
+        "maxWorkers": 6,
+        "buildLibsFromSource": true,
+        "target": "node",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "production": {}
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/tools/shareable-examples/src/**/*.ts",
+          "libs/tools/shareable-examples/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/tools/shareable-examples/jest.config.ts"
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/tools/shareable-examples"]
+    }
+  },
+  "tags": ["type:tooling"]
+}

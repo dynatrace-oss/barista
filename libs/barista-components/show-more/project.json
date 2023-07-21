@@ -1,0 +1,37 @@
+{
+  "name": "show-more",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/barista-components/show-more/src",
+  "prefix": "dt",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/barista-components/show-more/src/**/*.ts",
+          "libs/barista-components/show-more/src/**/*.html"
+        ]
+      }
+    },
+    "lint-styles": {
+      "executor": "./dist/libs/workspace:stylelint",
+      "options": {
+        "stylelintConfig": ".stylelintrc",
+        "reportFile": "dist/stylelint/report.xml",
+        "exclude": ["**/node_modules/**"],
+        "files": ["libs/barista-components/show-more/src/**/*.scss"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/barista-components/show-more"],
+      "options": {
+        "jestConfig": "libs/barista-components/show-more/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "generators": {},
+  "tags": ["scope:components", "type:library"]
+}

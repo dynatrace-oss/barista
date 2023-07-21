@@ -1,0 +1,27 @@
+{
+  "name": "testing-browser",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/testing/browser/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/testing/browser/src/**/*.ts",
+          "libs/testing/browser/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/testing/browser/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/testing/browser"]
+    }
+  },
+  "tags": ["scope:testing", "scope:browser", "type:library"]
+}

@@ -1,0 +1,69 @@
+{
+  "name": "tools-release",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/tools/release/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": true,
+        "commands": [
+          {
+            "command": "npx ng run tools-release:build-publish-release"
+          },
+          {
+            "command": "npx ng run tools-release:build-publish-release"
+          }
+        ]
+      }
+    },
+    "build-publish-release": {
+      "executor": "@nrwl/node:webpack",
+      "options": {
+        "main": "libs/tools/release/src/publish-release-cli.ts",
+        "tsConfig": "libs/tools/release/tsconfig.json",
+        "outputPath": "dist/libs/tools/publish-release",
+        "progress": false,
+        "buildLibsFromSource": true
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "build-stage-release": {
+      "executor": "@nrwl/node:webpack",
+      "options": {
+        "main": "libs/tools/release/src/stage-release-cli.ts",
+        "tsConfig": "libs/tools/release/tsconfig.json",
+        "outputPath": "dist/libs/tools/stage-release",
+        "progress": false,
+        "assets": [
+          {
+            "glob": "*",
+            "input": "libs/tools/release/src/assets",
+            "output": "assets"
+          }
+        ],
+        "buildLibsFromSource": true
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/tools/release/src/**/*.ts",
+          "libs/tools/release/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/tools/release/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/tools/release"]
+    }
+  },
+  "tags": ["type:tooling"]
+}

@@ -1,0 +1,39 @@
+{
+  "name": "confirmation-dialog",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/barista-components/confirmation-dialog/src",
+  "prefix": "dt",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/barista-components/confirmation-dialog/src/**/*.ts",
+          "libs/barista-components/confirmation-dialog/src/**/*.html"
+        ]
+      }
+    },
+    "lint-styles": {
+      "executor": "./dist/libs/workspace:stylelint",
+      "options": {
+        "stylelintConfig": ".stylelintrc",
+        "reportFile": "dist/stylelint/report.xml",
+        "exclude": ["**/node_modules/**"],
+        "files": ["libs/barista-components/confirmation-dialog/src/**/*.scss"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/barista-components/confirmation-dialog"
+      ],
+      "options": {
+        "jestConfig": "libs/barista-components/confirmation-dialog/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "generators": {},
+  "tags": ["scope:components", "type:library"]
+}

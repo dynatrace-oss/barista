@@ -1,0 +1,19 @@
+{
+  "name": "shared-keycodes",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/keycodes",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/keycodes/src/**/*.ts",
+          "libs/shared/keycodes/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["type:library", "type:shared"]
+}

@@ -1,0 +1,37 @@
+{
+  "name": "legend",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/barista-components/legend/src",
+  "prefix": "dt",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/barista-components/legend/src/**/*.ts",
+          "libs/barista-components/legend/src/**/*.html"
+        ]
+      }
+    },
+    "lint-styles": {
+      "executor": "./dist/libs/workspace:stylelint",
+      "options": {
+        "stylelintConfig": ".stylelintrc",
+        "reportFile": "dist/stylelint/report.xml",
+        "exclude": ["**/node_modules/**"],
+        "files": ["libs/barista-components/legend/src/**/*.scss"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/barista-components/legend"],
+      "options": {
+        "jestConfig": "libs/barista-components/legend/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "generators": {},
+  "tags": ["scope:components", "type:library"]
+}
