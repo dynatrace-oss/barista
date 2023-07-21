@@ -54,7 +54,7 @@
     "last 2 and_chr version"
   ],
   "engines": {
-    "node": ">=14.15"
+    "node": ">=14.20"
   },
   "dependencies": {
     "@angular/animations": "15.2.9",
@@ -77,9 +77,9 @@
     "zone.js": "0.12.0"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "14.1.0",
+    "@angular-builders/custom-webpack": "15.0.0",
     "@angular-devkit/architect": "0.1502.9",
-    "@angular-devkit/architect-cli": "0.1402.12",
+    "@angular-devkit/architect-cli": "0.1502.9",
     "@angular-devkit/build-angular": "15.2.9",
     "@angular-devkit/core": "15.2.9",
     "@angular-devkit/schematics": "15.2.9",
