@@ -683,6 +683,7 @@ export class DtFilterField<T = any>
 
         // Assign the currently open filter field when it is focused.
         if (this._isFocused) {
+          // eslint-disable-next-line @typescript-eslint/no-this-alias
           currentlyOpenFilterField = this;
         }
       });

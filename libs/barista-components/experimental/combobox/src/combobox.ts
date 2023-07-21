@@ -571,6 +571,7 @@ export class DtCombobox<T>
     if (currentlyOpenCombobox && currentlyOpenCombobox !== this) {
       currentlyOpenCombobox._autocompleteTrigger.closePanel();
     }
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     currentlyOpenCombobox = this;
   }
 
