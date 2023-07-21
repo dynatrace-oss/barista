@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+import { getProjects } from '@nrwl/devkit';
+import { FsTree } from '@nrwl/tao/src/shared/tree';
 import {
   BuilderContext,
   BuilderOutput,
@@ -67,23 +68,19 @@ export async function packager(
   }
 
   try {
-    // get the angular json
-    context.logger.info('Reading angular.json file...');
-    const angularJson = await tryJsonParse<AngularJson>(
-      join(context.workspaceRoot, 'angular.json'),
-    );
-
     // get the package json
     context.logger.info('Reading package.json file...');
     const packageJson = await tryJsonParse<PackageJson>(
       join(context.workspaceRoot, 'package.json'),
     );
 
+    const tree = new FsTree(process.cwd(), false);
+    const nxProjects = getProjects(tree);
+
     // Check whether a project root could be found
-    const projectRoot =
-      angularJson.projects &&
-      angularJson.projects[project] &&
-      angularJson.projects[project].root;
+    const nxProject = nxProjects.get(project);
+    const projectRoot = nxProject?.root;
+
     if (!projectRoot) {
       context.logger.error(
         `Error: Could not find a root folder for the project ${project} in your angular.json file`,
