@@ -16,9 +16,8 @@
 
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import { readJsonInTree } from '@nrwl/workspace';
 import { createEmptyWorkspace } from '@nrwl/workspace/testing';
-import * as path from 'path';
+import { join } from 'path';
 
 describe('Update 8.0.0', () => {
   let initialTree: Tree;
@@ -29,7 +28,7 @@ describe('Update 8.0.0', () => {
 
     schematicRunner = new SchematicTestRunner(
       '@dynatrace/barista-components/schematics',
-      path.join(__dirname, '../../../migrations.json'),
+      join(__dirname, '../../../migrations.json'),
     );
 
     initialTree.overwrite(
@@ -46,11 +45,14 @@ describe('Update 8.0.0', () => {
   });
 
   it('should update the barista components to the latest major version', async () => {
-    const result = await schematicRunner
-      .runSchematicAsync('update-8-0-0', {}, initialTree)
-      .toPromise();
+    const result = await schematicRunner.runSchematic(
+      'update-8-0-0',
+      {},
+      initialTree,
+    );
 
-    const { dependencies } = readJsonInTree(result, '/package.json');
+    const packageJson = result.get('./package.json');
+    const { dependencies } = JSON.parse(packageJson?.content.toString() ?? '');
     expect(dependencies).toEqual({
       '@angular/core': '^10.0.0',
       '@dynatrace/barista-components': '^8.0.0',
@@ -70,11 +72,14 @@ describe('Update 8.0.0', () => {
       }),
     );
 
-    const result = await schematicRunner
-      .runSchematicAsync('update-8-0-0', {}, initialTree)
-      .toPromise();
+    const result = await schematicRunner.runSchematic(
+      'update-8-0-0',
+      {},
+      initialTree,
+    );
 
-    const { dependencies } = readJsonInTree(result, '/package.json');
+    const packageJson = result.get('./package.json');
+    const { dependencies } = JSON.parse(packageJson?.content.toString() ?? '');
     expect(dependencies).toEqual({
       '@angular/core': '^10.0.0',
       '@dynatrace/barista-components': '^8.0.0',
@@ -93,11 +98,14 @@ describe('Update 8.0.0', () => {
       }),
     );
 
-    const result = await schematicRunner
-      .runSchematicAsync('update-8-0-0', {}, initialTree)
-      .toPromise();
+    const result = await schematicRunner.runSchematic(
+      'update-8-0-0',
+      {},
+      initialTree,
+    );
 
-    const { dependencies } = readJsonInTree(result, '/package.json');
+    const packageJson = result.get('./package.json');
+    const { dependencies } = JSON.parse(packageJson?.content.toString() ?? '');
     expect(dependencies).toEqual({
       '@angular/core': '^9.5.0',
       '@dynatrace/barista-components': '^8.0.0',
