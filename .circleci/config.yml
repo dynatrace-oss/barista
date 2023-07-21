@@ -132,8 +132,8 @@ jobs:
       - run:
           name: Build Workspace package 📦
           command: |
-            npm run ng run workspace:build
-            npm run ng run barista-tools:build
+            npm run nx run workspace:build
+            npm run nx run barista-tools:build
       - persist_to_workspace:
           root: ~/barista
           paths:
@@ -212,9 +212,7 @@ jobs:
       - nx/set-shas:
           error-on-no-successful-workflow: true
           main-branch-name: master
-      - run:
-          yarn nx run-many -- --target build --all --configuration production
-          --withDeps
+      - run: yarn nx run-many -- --target build --all --configuration production
       - persist_to_workspace:
           root: ~/barista
           paths:
