@@ -24,16 +24,14 @@ import { _DtTableBaseModule, _DtTableBase } from './base-table';
 import { DtTableModule } from './table-module';
 
 describe('_DtTableInteractiveRows', () => {
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [_DtTableBaseModule, DtTableModule],
-        declarations: [TestApp, AttributeTestApp],
-      });
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [_DtTableBaseModule, DtTableModule],
+      declarations: [TestApp, AttributeTestApp],
+    });
 
-      TestBed.compileComponents();
-    }),
-  );
+    TestBed.compileComponents();
+  }));
 
   it('should take the interactiveRows via a binding', () => {
     const fixture = TestBed.createComponent(TestApp);
@@ -58,7 +56,10 @@ describe('_DtTableInteractiveRows', () => {
 @Component({
   selector: 'dt-test-app',
   template: `
-    <dt-table-base [interactiveRows]="interactiveRows">
+    <dt-table-base
+      [interactiveRows]="interactiveRows"
+      [dataSource]="dataSource"
+    >
       <ng-container dtColumnDef="memory"></ng-container>
       <dt-row *dtRowDef="let row; columns: ['memory']"></dt-row>
     </dt-table-base>
@@ -66,6 +67,7 @@ describe('_DtTableInteractiveRows', () => {
 })
 class TestApp {
   interactiveRows: boolean;
+  dataSource = [];
   @ViewChild(_DtTableBase, { static: true }) table: _DtTableBase<any>;
 }
 

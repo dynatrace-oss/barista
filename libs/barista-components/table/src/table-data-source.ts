@@ -316,7 +316,8 @@ export class DtTableDataSource<T> extends DataSource<T> {
     filter: string,
   ): boolean => {
     // Transform the data into a lowercase string of all property values.
-    const dataStr = Object.keys(data)
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const dataStr = Object.keys(data as {})
       .reduce(
         (currentTerm: string, key: string) =>
           // Use an obscure Unicode character to delimit the words in the concatenated string.

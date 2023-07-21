@@ -56,12 +56,7 @@ function getProject(
   workspace: workspaces.WorkspaceDefinition,
   projectName?: string,
 ): workspaces.ProjectDefinition {
-  const defaultProject = workspace.extensions['defaultProject'] as string;
-  const project = workspace.projects.get(projectName || defaultProject);
-
-  if (!project && !defaultProject) {
-    throw new SchematicsException(COULD_NOT_FIND_DEFAULT_PROJECT_ERROR);
-  }
+  const project = workspace.projects.get(projectName || '');
 
   if (!project) {
     throw new SchematicsException(COULD_NOT_FIND_PROJECT_ERROR(projectName!));
