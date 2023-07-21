@@ -22,6 +22,12 @@ import {
   platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 
+// Fixes the TextEncoder error that comes with newer versions of node
+// in combination with whatwg-url
+// https://github.com/jsdom/whatwg-url/issues/209
+import { TextEncoder, TextDecoder } from 'util';
+Object.assign(global, { TextDecoder, TextEncoder });
+
 getTestBed().resetTestEnvironment();
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
