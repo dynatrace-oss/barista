@@ -10,10 +10,10 @@
         "parallel": true,
         "commands": [
           {
-            "command": "npx ng run tools-release:build-publish-release"
+            "command": "npx nx run tools-release:build-publish-release"
           },
           {
-            "command": "npx ng run tools-release:build-publish-release"
+            "command": "npx nx run tools-release:build-publish-release"
           }
         ]
       }
