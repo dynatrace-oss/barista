@@ -4,7 +4,7 @@
   "overrides": [
     {
       "files": ["*.ts"],
-      "excludedFiles": ["*.spec.ts"],
+      "excludedFiles": ["*.spec.ts", "test-setup.ts"],
       "parserOptions": {
         "project": ["libs/barista-components/overlay/tsconfig.lib.json"]
       },
@@ -42,7 +42,7 @@
       "plugins": ["@typescript-eslint"]
     },
     {
-      "files": ["*.spec.ts"],
+      "files": ["*.spec.ts", "src/test-setup.ts"],
       "parserOptions": {
         "project": ["libs/barista-components/overlay/tsconfig.spec.json"]
       }
