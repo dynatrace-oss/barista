@@ -10,7 +10,7 @@
         "parallel": false,
         "commands": [
           {
-            "command": "npx ng run demos:build-frontend"
+            "command": "npx nx run demos:build-frontend"
           }
         ]
       },
@@ -18,7 +18,7 @@
         "production": {
           "commands": [
             {
-              "command": "npx ng run demos:build-frontend:production"
+              "command": "npx nx run demos:build-frontend:production"
             }
           ]
         }
@@ -152,7 +152,7 @@
         "parallel": false,
         "commands": [
           {
-            "command": "npx ng run demos:a11y-tests"
+            "command": "npx nx run demos:a11y-tests"
           }
         ]
       },
@@ -160,14 +160,14 @@
         "ci": {
           "commands": [
             {
-              "command": "npx ng run demos:a11y-tests:ci"
+              "command": "npx nx run demos:a11y-tests:ci"
             }
           ]
         },
         "watch": {
           "commands": [
             {
-              "command": "npx ng run demos:a11y-tests:watch"
+              "command": "npx nx run demos:a11y-tests:watch"
             }
           ]
         }

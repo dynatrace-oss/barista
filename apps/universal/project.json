@@ -10,10 +10,10 @@
         "parallel": true,
         "commands": [
           {
-            "command": "npx ng run universal:build-frontend:production"
+            "command": "npx nx run universal:build-frontend:production"
           },
           {
-            "command": "npx ng run universal:build-server"
+            "command": "npx nx run universal:build-server"
           }
         ]
       },
