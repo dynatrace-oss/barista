@@ -96,7 +96,7 @@ export const baristaRoutes: Route[] = [
       anchorScrolling: 'enabled',
       paramsInheritanceStrategy: 'always',
       enableTracing: false, // Can be set for debugging the router
-      initialNavigation: 'enabled',
+      initialNavigation: 'enabledBlocking',
     }),
   ],
   exports: [RouterModule],

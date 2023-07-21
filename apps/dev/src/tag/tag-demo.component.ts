@@ -17,7 +17,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DtTag } from '@dynatrace/barista-components/tag';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'tag-dev-app-demo',
@@ -35,9 +39,9 @@ export class TagDemo implements OnInit {
     { key: 'onlyKey' },
   ]);
 
-  keyValueForm = new FormGroup({
-    key: new FormControl('', [Validators.required]),
-    value: new FormControl(''),
+  keyValueForm = new UntypedFormGroup({
+    key: new UntypedFormControl('', [Validators.required]),
+    value: new UntypedFormControl(''),
   });
 
   value1 = 'My value 1';

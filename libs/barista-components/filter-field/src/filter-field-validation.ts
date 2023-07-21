@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-import { FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import {
+  UntypedFormControl,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 
 export type DtFilterFieldValidatorFn = (
   control: DtFilterFieldControl,
@@ -25,7 +29,7 @@ export interface DtFilterFieldValidator {
   error: string;
 }
 
-export class DtFilterFieldControl extends FormControl {
+export class DtFilterFieldControl extends UntypedFormControl {
   constructor(private _validators: DtFilterFieldValidator[] = []) {
     super(
       '',

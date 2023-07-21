@@ -4,5 +4,6 @@
     "sourceMap": false,
     "outDir": "../../dist/out-tsc"
   },
-  "include": ["src/**/*.e2e.ts", "src/**/*.po.ts"]
+  "include": ["src/**/*.e2e.ts", "src/**/*.po.ts"],
+  "exclude": ["jest.config.ts"]
 }

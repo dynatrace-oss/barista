@@ -10,5 +10,8 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "target": "es2020"
+  }
 }

@@ -38,7 +38,7 @@ export function startServer(
       child.stdout.on('data', (msg: Buffer) => {
         const message = msg.toString().trim();
         if (message.startsWith('Node Express server listening on')) {
-          resolve({ pid: child.pid });
+          resolve({ pid: child.pid as number });
         }
       });
     }

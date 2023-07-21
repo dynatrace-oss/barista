@@ -15,7 +15,7 @@
  */
 
 import {
-  FormControl,
+  UntypedFormControl,
   FormGroupDirective,
   NgControl,
   NgForm,
@@ -63,7 +63,7 @@ export function mixinErrorState<T extends Constructor<HasErrorState>>(
       // https://github.com/palantir/tslint/issues/3540
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       const control = this.ngControl
-        ? (this.ngControl.control as FormControl)
+        ? (this.ngControl.control as UntypedFormControl)
         : null;
       const newState = matcher.isErrorState(control, parent);
 

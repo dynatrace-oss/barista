@@ -14,6 +14,7 @@
     "**/*.test.ts",
     "**/*.a11y.ts",
     "**/*.e2e.ts",
-    "**/*.po.ts"
+    "**/*.po.ts",
+    "jest.config.ts"
   ]
 }

@@ -29,7 +29,7 @@ import {
   ViewChild,
   OnDestroy,
 } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { DtOrder } from './order-directive';
 import { DtCell, DtColumnDef } from '../cell';
 import { _addCssClass } from '@dynatrace/barista-components/core';
@@ -81,7 +81,7 @@ export class DtOrderCell<T>
   @ViewChild('orderInput', { static: true })
   _orderInput: ElementRef<HTMLInputElement>;
 
-  _orderFormControl = new FormControl('', [
+  _orderFormControl = new UntypedFormControl('', [
     Validators.required,
     Validators.pattern(INPUT_PATTERN),
   ]);
