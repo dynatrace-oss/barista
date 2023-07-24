@@ -28,7 +28,7 @@ executors:
   barista:
     working_directory: ~/barista
     docker:
-      - image: cimg/node:14.17-browsers
+      - image: cimg/node:18.17-browsers
 
   # Base image for building workspace topics
   barista-browsers:
@@ -212,7 +212,7 @@ jobs:
       - nx/set-shas:
           error-on-no-successful-workflow: true
           main-branch-name: master
-      - run: yarn nx run-many -- --target build --all --configuration production
+      - run: yarn nx run-many --target build --all --configuration production
       - persist_to_workspace:
           root: ~/barista
           paths:
