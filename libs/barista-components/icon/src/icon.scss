@@ -7,7 +7,7 @@
 }
 
 .dt-icon svg {
-  fill: var(--dt-icon-color, #{$gray-300});
+  fill: var(--dt-icon-color);
 }
 
 .dt-icon.dt-color-main {
@@ -39,10 +39,6 @@
 }
 
 .dt-theme-dark {
-  .dt-icon svg {
-    fill: var(--dt-icon-color, #{white});
-  }
-
   .dt-icon.dt-color-main,
   .dt-icon.dt-color-accent,
   .dt-icon.dt-color-warning,
