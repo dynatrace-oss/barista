@@ -1,3 +1,10 @@
+## [11.0.3](https://github.com/dynatrace-oss/barista/compare/11.0.2...11.0.3) (2023-07-24)
+
+### Bug Fixes
+
+- **link:** Fixes a regression with the size of the external link icon.
+  ([4e51c6f](https://github.com/dynatrace-oss/barista/commit/4e51c6f510d076fe97690006d9d12d6622366514))
+
 ## [11.0.2](https://github.com/dynatrace-oss/barista/compare/11.0.1...11.0.2) (2023-07-24)
 
 ### Bug Fixes
