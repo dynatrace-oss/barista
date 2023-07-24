@@ -1,3 +1,13 @@
+##
+
+[11.0.2](https://github.com/dynatrace-oss/barista/compare/11.0.1...11.0.2)
+(2023-07-24)
+
+### Bug Fixes
+
+- **icons:** Reverted color change for icons to prevent breaking.
+  ([89a4d84](https://github.com/dynatrace-oss/barista/commit/89a4d845dda30383fac52efd0921cbd571d6d099))
+
 ## [11.0.1](https://github.com/dynatrace-oss/barista/compare/11.0.0...11.0.1) (2023-06-26)
 
 ## Refactors
