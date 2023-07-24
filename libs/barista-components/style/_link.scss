@@ -72,8 +72,8 @@ a.dt-link {
   );
 
   &.dt-external::after {
-    /* EM-width white space to scale the external link icon correctly */
-    content: '\2003';
+    /* ideographic white space to scale the external link icon correctly */
+    content: '\3000';
     display: inline;
     margin-left: 0.35ch;
     background-image: dt-external-link-icon();
