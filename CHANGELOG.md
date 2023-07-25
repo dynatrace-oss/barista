@@ -1,3 +1,10 @@
+## [11.0.4](https://github.com/dynatrace-oss/barista/compare/11.0.3...11.0.4) (2023-07-25)
+
+### Bug Fixes
+
+- **table:** Fixes an issue with the dependency injection of simple-column-base.
+  ([449950b](https://github.com/dynatrace-oss/barista/commit/449950b56fca05b84c06cfa9f29d659c4118eec1))
+
 ## [11.0.3](https://github.com/dynatrace-oss/barista/compare/11.0.2...11.0.3) (2023-07-24)
 
 ### Bug Fixes
