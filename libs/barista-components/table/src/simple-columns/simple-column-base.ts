@@ -22,6 +22,7 @@ import {
 } from '@angular/cdk/coercion';
 import {
   Directive,
+  Inject,
   Input,
   OnChanges,
   OnDestroy,
@@ -29,6 +30,7 @@ import {
   Optional,
   SimpleChanges,
   ViewChild,
+  forwardRef,
 } from '@angular/core';
 import { DtIndicatorThemePalette } from '@dynatrace/barista-components/indicator';
 import { DtFormattedValue } from '@dynatrace/barista-components/formatters';
@@ -173,7 +175,9 @@ export abstract class DtSimpleColumnBase<T>
    */
   @ViewChild(DtCellDef, { static: true }) _cellDef: DtCellDef;
 
-  constructor(@Optional() public table: DtTable<T>) {}
+  constructor(
+    @Optional() @Inject(forwardRef(() => DtTable)) public table: DtTable<T>,
+  ) {}
 
   ngOnInit(): void {
     this._syncColumnDefName();
