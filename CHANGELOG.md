@@ -1,3 +1,11 @@
+## [11.0.5](https://github.com/dynatrace-oss/barista/compare/11.0.4...11.0.5) (2023-07-25)
+
+### Bug Fixes
+
+- **table:** Fixes an issue with the simple-column dependency injection for
+  tests.
+  ([c0c65e3](https://github.com/dynatrace-oss/barista/commit/c0c65e3e8fb881d0fbe0ee80f804fa4a13da5994))
+
 ## [11.0.4](https://github.com/dynatrace-oss/barista/compare/11.0.3...11.0.4) (2023-07-25)
 
 ### Bug Fixes
