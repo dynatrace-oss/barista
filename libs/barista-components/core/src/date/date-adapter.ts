@@ -146,7 +146,9 @@ export class DtNativeDateAdapter implements DtDateAdapter<Date> {
     const result = createDateWithOverflow(year, month, date);
 
     if (result.getMonth() !== month) {
-      throw Error(`Invalid date "${date}" for month with index "${month}".`);
+      throw Error(
+        `Invalid date "${result.toString()}" for given params y:${year}, m:${month}, d:${date}, received y:${result.getFullYear()}, m:${result.getMonth()}, d:${result.getDate()}, h:${result.getHours()}, i:${result.getMinutes()}`,
+      );
     }
 
     return result;
@@ -290,7 +292,7 @@ function formatDate(dateFormat: Intl.DateTimeFormat, date: Date): string {
 }
 
 /** Creates a date but allows the month and date to overflow. */
-function createDateWithOverflow(
+export function createDateWithOverflow(
   year: number,
   month: number,
   date: number,
@@ -300,7 +302,7 @@ function createDateWithOverflow(
   // We need to correct for the fact that JS native Date treats years in range [0, 99] as
   // abbreviations for 19xx.
   if (year >= 0 && year < 100) {
-    result.setFullYear(this.getYear(result) - 1900);
+    result.setFullYear(result.getFullYear() - 1900);
   }
   return result;
 }
