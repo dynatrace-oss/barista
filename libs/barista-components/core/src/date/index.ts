@@ -14,4 +14,9 @@
  * limitations under the License.
  */
 
-export * from './date-adapter';
+export {
+  DtDateAdapter,
+  DtNativeDateAdapter,
+  DT_DATE_LOCALE_FACTORY,
+  DT_DATE_LOCALE,
+} from './date-adapter';
