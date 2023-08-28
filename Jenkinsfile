@@ -48,7 +48,7 @@ pipeline {
 
     stage('Install dependencies') {
       steps {
-        nodejs(nodeJSInstallationName: 'Node 12.x') {
+        nodejs(nodeJSInstallationName: 'Node 14.x') {
           ansiColor('xterm') {
             sh 'npm ci'
           }
@@ -66,7 +66,7 @@ pipeline {
           usernamePassword(credentialsId: 'npmjs-dynatrace-nodejs-token', passwordVariable: 'NPM_PUBLISH_TOKEN', usernameVariable: 'NPM_USER'),
           usernamePassword(credentialsId: 'dt-ci-github', passwordVariable: 'GITHUB_TOKEN', usernameVariable: 'GITHUB_USER')
         ]) {
-          nodejs(nodeJSInstallationName: 'Node 12.x') {
+          nodejs(nodeJSInstallationName: 'Node 14.x') {
 
             sh '''
               npm run publish-release

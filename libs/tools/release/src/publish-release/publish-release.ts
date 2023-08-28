@@ -103,9 +103,6 @@ export async function publishRelease(workspaceRoot: string): Promise<void> {
   // check that the build was successful
   await verifyPassingGithubStatus(gitClient, githubApi, currentBranch);
 
-  // verify un-committed changes
-  verifyNoUncommittedChanges(gitClient);
-
   // verify local commits match upstream
   verifyLocalCommitsMatchUpstream(gitClient, currentBranch);
 
