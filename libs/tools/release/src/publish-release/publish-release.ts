@@ -25,7 +25,6 @@ import { extractReleaseNotes } from '../extract-release-notes';
 import {
   GitClient,
   verifyLocalCommitsMatchUpstream,
-  verifyNoUncommittedChanges,
   verifyPassingGithubStatus,
 } from '../git';
 import { promptConfirmReleasePublish } from '../prompts';
