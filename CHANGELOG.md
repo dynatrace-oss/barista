@@ -1,10 +1,16 @@
+## [14.0.0](https://github.com/dynatrace-oss/barista/compare/11.0.0...14.0.0) (2023-08-28)
+
+### BREAKING CHANGES
+
+- Update all Angular packages to version 14
+
 ## [11.0.6](https://github.com/dynatrace-oss/barista/compare/11.0.5...11.0.6) (2023-07-27)
 
 ### Bug Fixes
 
-* **container-breakpoint-observer:** Changed the calculation of breakpoint to rely on measurements returned by the IntersectionObserverEntry. ([1ea9e42](https://github.com/dynatrace-oss/barista/commit/1ea9e4269ebd1a89a862f7ec78826738d8b70a17))
-
-
+- **container-breakpoint-observer:** Changed the calculation of breakpoint to
+  rely on measurements returned by the IntersectionObserverEntry.
+  ([1ea9e42](https://github.com/dynatrace-oss/barista/commit/1ea9e4269ebd1a89a862f7ec78826738d8b70a17))
 
 ## [11.0.5](https://github.com/dynatrace-oss/barista/compare/11.0.4...11.0.5) (2023-07-25)
 
