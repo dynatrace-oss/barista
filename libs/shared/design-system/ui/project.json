@@ -6,7 +6,7 @@
   "prefix": "ds",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/shared/design-system/ui/src/**/*.ts",
@@ -15,7 +15,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "libs/shared/design-system/ui/jest.config.ts",
         "passWithNoTests": true
@@ -24,7 +24,7 @@
     }
   },
   "generators": {
-    "@nrwl/angular:component": {
+    "@nx/angular:component": {
       "style": "scss"
     }
   },

@@ -9,7 +9,7 @@
         "project": ["libs/examples/tsconfig.lib.json"]
       },
       "extends": [
-        "plugin:@nrwl/nx/angular",
+        "plugin:@nx/angular",
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
@@ -44,7 +44,7 @@
     },
     {
       "files": ["*.html"],
-      "extends": ["plugin:@nrwl/nx/angular-template"],
+      "extends": ["plugin:@nx/angular-template"],
       "rules": {}
     }
   ]

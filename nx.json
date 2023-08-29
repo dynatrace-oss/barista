@@ -23,11 +23,11 @@
     "@schematics/angular:directive": {
       "prefix": ""
     },
-    "@nrwl/angular:application": {
+    "@nx/angular:application": {
       "unitTestRunner": "jest",
       "e2eTestRunner": "none"
     },
-    "@nrwl/angular:library": {
+    "@nx/angular:library": {
       "unitTestRunner": "jest"
     }
   },
@@ -54,6 +54,6 @@
       "{workspaceRoot}/.circleci/config.yml",
       "{workspaceRoot}/tsconfig.base.json"
     ],
-    "production": ["default"]
+    "production": ["default", "!{projectRoot}/src/test-setup.[jt]s"]
   }
 }

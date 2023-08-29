@@ -79,13 +79,15 @@
         "tsConfig": "apps/universal/tsconfig.server.json",
         "progress": false,
         "sourceMap": true,
-        "optimization": false
+        "optimization": false,
+        "buildOptimizer": false
       },
       "configurations": {
         "production": {
           "outputHashing": "media",
           "sourceMap": false,
-          "optimization": true
+          "optimization": true,
+          "buildOptimizer": true
         }
       },
       "defaultConfiguration": "",
@@ -102,7 +104,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "apps/universal/src/**/*.ts",

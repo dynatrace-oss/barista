@@ -25,4 +25,5 @@
     "titleBar.inactiveForeground": "#e7e7e799"
   },
   "peacock.color": "#dd0531",
+  "eslint.validate": ["json"]
 }

@@ -12,7 +12,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/barista-components/schematics/src/**/*.ts",
@@ -30,7 +30,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "libs/barista-components/schematics/jest.config.ts",
         "passWithNoTests": true

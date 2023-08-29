@@ -22,7 +22,7 @@ jest.mock('fs', () => {
     unionfs.fss = [actualFs];
   };
   // Need to map fs constants to union fs as this is required
-  // by @nrwl/workspace -> tmp and would break when running
+  // by @nx/workspace -> tmp and would break when running
   unionfs.constants = actualFs.constants;
   return unionfs.use(actualFs);
 });

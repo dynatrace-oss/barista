@@ -16,7 +16,7 @@
 
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import { createEmptyWorkspace } from '@nrwl/workspace/testing';
+import { createEmptyWorkspace } from '@nx/workspace/testing';
 import { join } from 'path';
 
 describe('Update 8.0.0', () => {

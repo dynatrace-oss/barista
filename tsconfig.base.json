@@ -232,6 +232,7 @@
       "@dynatrace/testing/fixtures": ["libs/testing/fixtures/src/index.ts"],
       "@dynatrace/testing/node": ["libs/testing/node/src/index.ts"],
       "@dynatrace/workspace": ["libs/workspace/src/index.ts"],
+      "@dynatrace/workspace-plugin": ["tools/workspace-plugin/src/index.ts"],
       "@environments/*": ["environments/*"]
     },
     "plugins": [
