@@ -6,7 +6,7 @@
   "prefix": "dynatrace",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/shared/data-access-strapi/src/**/*.ts",
@@ -15,7 +15,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "libs/shared/data-access-strapi/jest.config.ts",
         "passWithNoTests": true

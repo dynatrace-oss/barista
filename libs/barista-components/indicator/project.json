@@ -6,7 +6,7 @@
   "prefix": "dt",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/barista-components/indicator/src/**/*.ts",
@@ -24,7 +24,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/barista-components/indicator"],
       "options": {
         "jestConfig": "libs/barista-components/indicator/jest.config.ts",

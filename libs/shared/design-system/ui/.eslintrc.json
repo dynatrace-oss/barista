@@ -9,7 +9,7 @@
         "project": ["libs/shared/design-system/ui/tsconfig.lib.json"]
       },
       "extends": [
-        "plugin:@nrwl/nx/angular",
+        "plugin:@nx/angular",
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {

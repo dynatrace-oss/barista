@@ -191,13 +191,15 @@
         "preserveSymlinks": true,
         "progress": false,
         "sourceMap": true,
-        "optimization": false
+        "optimization": false,
+        "buildOptimizer": false
       },
       "configurations": {
         "production": {
           "outputHashing": "media",
           "sourceMap": false,
-          "optimization": true
+          "optimization": true,
+          "buildOptimizer": true
         }
       },
       "defaultConfiguration": "",
@@ -221,7 +223,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "apps/barista-design-system/src/**/*.ts",
@@ -239,7 +241,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "apps/barista-design-system/jest.config.ts",
         "passWithNoTests": true

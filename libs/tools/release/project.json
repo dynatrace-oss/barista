@@ -19,18 +19,20 @@
       }
     },
     "build-publish-release": {
-      "executor": "@nrwl/node:webpack",
+      "executor": "@nx/webpack:webpack",
       "options": {
         "main": "libs/tools/release/src/publish-release-cli.ts",
         "tsConfig": "libs/tools/release/tsconfig.json",
         "outputPath": "dist/libs/tools/publish-release",
         "progress": false,
-        "buildLibsFromSource": true
+        "buildLibsFromSource": true,
+        "compiler": "tsc",
+        "target": "node"
       },
       "outputs": ["{options.outputPath}"]
     },
     "build-stage-release": {
-      "executor": "@nrwl/node:webpack",
+      "executor": "@nx/webpack:webpack",
       "options": {
         "main": "libs/tools/release/src/stage-release-cli.ts",
         "tsConfig": "libs/tools/release/tsconfig.json",
@@ -43,12 +45,14 @@
             "output": "assets"
           }
         ],
-        "buildLibsFromSource": true
+        "buildLibsFromSource": true,
+        "compiler": "tsc",
+        "target": "node"
       },
       "outputs": ["{options.outputPath}"]
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/tools/release/src/**/*.ts",
@@ -57,7 +61,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "libs/tools/release/jest.config.ts",
         "passWithNoTests": true

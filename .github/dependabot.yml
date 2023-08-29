@@ -35,7 +35,7 @@ updates:
       - dependency-name: '@bazel/ibazel'
         versions:
           - 0.15.6
-      - dependency-name: '@nrwl/nx-plugin'
+      - dependency-name: '@nx/plugin'
         versions:
           - 11.5.2
       - dependency-name: '@angular/language-service'

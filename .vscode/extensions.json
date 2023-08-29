@@ -5,6 +5,7 @@
     "ms-vscode.vscode-typescript-tslint-plugin",
     "angular.ng-template",
     "hex-ci.stylelint-plus",
-    "dbaeumer.vscode-eslint"
+    "dbaeumer.vscode-eslint",
+    "firsttris.vscode-jest-runner"
   ]
 }

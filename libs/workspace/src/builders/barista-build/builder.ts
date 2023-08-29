@@ -22,8 +22,8 @@ import {
 import { green } from 'chalk';
 import { existsSync, renameSync } from 'fs';
 import { join } from 'path';
-import { from, Observable, of } from 'rxjs';
-import { catchError, finalize, mapTo, switchMap, tap } from 'rxjs/operators';
+import { from, Observable, of } from 'rxjs7';
+import { catchError, finalize, mapTo, switchMap, tap } from 'rxjs7/operators';
 import { BaristaBuildBuilderSchema } from './schema';
 import { getRoutes, renderRoutes, scheduleBuilds, startServer } from './utils';
 
@@ -48,7 +48,7 @@ export function runBuilder(
   // afterwards
   let serverProcessId: number;
 
-  return from(scheduleBuilds(options, context)).pipe(
+  const buildChain = from(scheduleBuilds(options, context)).pipe(
     tap(() => {
       // rename the original index file to avoid race conditions.
       const originalIndex = join(outputPath, 'index.html');
@@ -56,7 +56,7 @@ export function runBuilder(
         renameSync(originalIndex, join(outputPath, 'index.original.html'));
       }
     }),
-    switchMap((serverModule) => startServer(serverModule, SERVER_PORT)),
+    switchMap((serverModule: string) => startServer(serverModule, SERVER_PORT)),
     tap(({ pid }) => {
       serverProcessId = pid;
       context.logger.info(green(`Server started with PID: ${pid}`));
@@ -70,11 +70,11 @@ export function runBuilder(
         logger: context.logger,
       }),
     ),
-    mapTo({ success: true }),
+    mapTo({ success: true } as BuilderOutput),
     catchError((error) => {
       context.reportStatus(`Error: ${error.message}`);
       context.logger.error(error.message);
-      return of({ success: false });
+      return of({ success: false } as BuilderOutput);
     }),
     finalize(() => {
       if (serverProcessId) {
@@ -82,6 +82,8 @@ export function runBuilder(
       }
     }),
   );
+
+  return buildChain;
 }
 
 export default createBuilder(runBuilder);
