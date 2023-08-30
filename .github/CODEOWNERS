@@ -237,8 +237,6 @@
 
 /libs/tools/** @tomheller @ffriedl89 @thomaspink
 
-/tools/generators/** @tomheller @Sherif-Elhefnawy
-
 /tools/stylelint/** @thomaspink
 
 /tools/tslint-rules/** @thomaspink

@@ -15,15 +15,12 @@
  */
 
 import { NgModule } from '@angular/core';
-import {
-  ServerModule,
-  ServerTransferStateModule,
-} from '@angular/platform-server';
+import { ServerModule } from '@angular/platform-server';
 import { AppModule } from './app.module';
 import { KitchenSink } from './kitchen-sink/kitchen-sink';
 
 @NgModule({
-  imports: [AppModule, ServerModule, ServerTransferStateModule],
+  imports: [AppModule, ServerModule],
   bootstrap: [KitchenSink],
 })
 export class AppServerModule {}

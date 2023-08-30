@@ -15,17 +15,14 @@
  */
 
 import { NgModule } from '@angular/core';
-import {
-  ServerModule,
-  ServerTransferStateModule,
-} from '@angular/platform-server';
+import { ServerModule } from '@angular/platform-server';
 import { AppModule } from './app.module';
 import { BaApp } from './app';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UniversalInterceptor } from '@dynatrace/shared/design-system/ui';
 
 @NgModule({
-  imports: [AppModule, ServerModule, ServerTransferStateModule],
+  imports: [AppModule, ServerModule],
   bootstrap: [BaApp],
   providers: [
     {

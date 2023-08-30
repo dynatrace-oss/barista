@@ -16,9 +16,8 @@
 
 import { basename, extname } from 'path';
 
-import { getSystemPath, normalize } from '@angular-devkit/core';
+import { getSystemPath, normalize, virtualFs } from '@angular-devkit/core';
 import { TempScopedNodeJsSyncHost } from '@angular-devkit/core/node/testing';
-import * as virtualFs from '@angular-devkit/core/src/virtual-fs/host';
 import { HostTree, Tree } from '@angular-devkit/schematics';
 import {
   SchematicTestRunner,
@@ -32,27 +31,23 @@ export async function createTestApp(
   appOptions: { name?: string } = {},
   tree?: Tree,
 ): Promise<UnitTestTree> {
-  const workspaceTree = await runner
-    .runExternalSchematicAsync(
-      '@schematics/angular',
-      'workspace',
-      {
-        name: 'workspace',
-        version: '6.0.0',
-        newProjectRoot: 'projects',
-      },
-      tree,
-    )
-    .toPromise();
+  const workspaceTree = await runner.runExternalSchematic(
+    '@schematics/angular',
+    'workspace',
+    {
+      name: 'workspace',
+      version: '6.0.0',
+      newProjectRoot: 'projects',
+    },
+    tree,
+  );
 
-  return runner
-    .runExternalSchematicAsync(
-      '@schematics/angular',
-      'application',
-      { name: 'dynatrace/angular-components', ...appOptions },
-      workspaceTree,
-    )
-    .toPromise();
+  return runner.runExternalSchematic(
+    '@schematics/angular',
+    'application',
+    { name: 'dynatrace/angular-components', ...appOptions },
+    workspaceTree,
+  );
 }
 
 /**
@@ -152,7 +147,7 @@ export async function createTestCaseSetup(
     // from within the project.
     process.chdir(tempPath);
 
-    await runner.runSchematicAsync(migrationName, {}, appTree).toPromise();
+    await runner.runSchematic(migrationName, {}, appTree);
 
     // Switch back to the initial working directory.
     process.chdir(initialWorkingDir);
