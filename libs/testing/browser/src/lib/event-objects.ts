@@ -15,11 +15,7 @@
  */
 
 /** Creates a browser MouseEvent with the specified options. */
-export function createMouseEvent(
-  type: string,
-  x: number = 0,
-  y: number = 0,
-): MouseEvent {
+export function createMouseEvent(type: string, x = 0, y = 0): MouseEvent {
   const event = document.createEvent('MouseEvent');
 
   event.initMouseEvent(
@@ -44,11 +40,7 @@ export function createMouseEvent(
 }
 
 /** Creates a browser TouchEvent with the specified pointer coordinates. */
-export function createTouchEvent(
-  type: string,
-  pageX: number = 0,
-  pageY: number = 0,
-): UIEvent {
+export function createTouchEvent(type: string, pageX = 0, pageY = 0): UIEvent {
   const event = new UIEvent(type, {
     cancelable: true,
     bubbles: true,
@@ -102,14 +94,6 @@ export function createKeyboardEvent(
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const event = new KeyboardEvent(type, initializer);
-  const originalPreventDefault = event.preventDefault;
-
-  // IE won't set `defaultPrevented` on synthetic events so we need to do it manually.
-  event.preventDefault = function (): void {
-    Object.defineProperty(event, 'defaultPrevented', { get: () => true });
-    // eslint-disable-next-line prefer-rest-params
-    return originalPreventDefault.apply(this, arguments);
-  };
 
   return event;
 }
@@ -117,8 +101,8 @@ export function createKeyboardEvent(
 /** Creates a fake event object with any desired event type. */
 export function createFakeEvent(
   type: string,
-  canBubble: boolean = false,
-  cancelable: boolean = true,
+  canBubble = false,
+  cancelable = true,
 ): Event {
   const event = document.createEvent('Event');
   event.initEvent(type, canBubble, cancelable);

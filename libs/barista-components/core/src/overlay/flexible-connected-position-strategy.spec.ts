@@ -2820,6 +2820,5 @@ class TestOverlay {}
   imports: [OverlayModule, PortalModule],
   exports: [TestOverlay],
   declarations: [TestOverlay],
-  entryComponents: [TestOverlay],
 })
 class OverlayTestModule {}

@@ -32,9 +32,7 @@ export async function runSchematic<T extends object>(
   options: T,
   tree: Tree,
 ): Promise<UnitTestTree> {
-  return testRunner
-    .runSchematicAsync<T>(schematicName, options, tree)
-    .toPromise();
+  return testRunner.runSchematic<T>(schematicName, options, tree);
 }
 
 /** Runs an external Schematic */
@@ -44,7 +42,10 @@ export async function runExternalSchematic<T extends object>(
   options: T,
   tree: Tree,
 ): Promise<UnitTestTree> {
-  return testRunner
-    .runExternalSchematicAsync<T>(collectionName, schematicName, options, tree)
-    .toPromise();
+  return testRunner.runExternalSchematic<T>(
+    collectionName,
+    schematicName,
+    options,
+    tree,
+  );
 }

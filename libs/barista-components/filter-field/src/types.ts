@@ -141,7 +141,7 @@ export function dtRangeDef<D = unknown>(
   }
 
   // Define which operators are enabled.
-  let operatorFlags: DtRangeOperatorFlags = 0;
+  let operatorFlags: DtRangeOperatorFlags = 0 as DtRangeOperatorFlags;
   if (hasRangeOperator) {
     operatorFlags |= DtRangeOperatorFlags.Range;
   }
@@ -180,7 +180,7 @@ export function dtMultiSelectDef<D = unknown, OG = unknown, Op = unknown>(
   existingNodeDef: DtNodeDef | null,
   multiOptions: DtNodeDef<OG>[],
   async: boolean,
-  partial: boolean = false,
+  partial = false,
 ): DtNodeDef<D> & { multiSelect: DtMultiSelectDef<OG, Op> } {
   const def = {
     ...nodeDef(data, existingNodeDef),
@@ -233,7 +233,7 @@ export function dtAutocompleteDef<D = unknown, OG = unknown, Op = unknown>(
   optionsOrGroups: DtNodeDef<OG>[],
   distinct: boolean,
   async: boolean,
-  partial: boolean = false,
+  partial = false,
   partialHintMessage?: string,
 ): DtNodeDef<D> & { autocomplete: DtAutocompleteDef<OG, Op> } {
   const def = {
@@ -288,7 +288,7 @@ export function dtOptionDef<D = unknown>(
   uid: string | null,
   parentAutocomplete: DtNodeDef<unknown> | null,
   parentGroup: DtNodeDef<unknown> | null,
-  disabled: boolean = false,
+  disabled = false,
 ): DtNodeDef<D> & { option: DtOptionDef } {
   const def = {
     ...nodeDef(data, existingNodeDef),
@@ -345,8 +345,8 @@ export function dtFreeTextDef<D = unknown, S = unknown>(
   suggestions: DtNodeDef<S>[],
   validators: DtFilterFieldValidator[],
   unique: boolean,
-  defaultSearch: boolean = false,
-  async: boolean = false,
+  defaultSearch = false,
+  async = false,
 ): DtNodeDef<D> & { freeText: DtFreeTextDef<S> } {
   const def = {
     ...nodeDef<D>(data, existingNodeDef),

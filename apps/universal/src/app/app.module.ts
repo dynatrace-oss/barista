@@ -15,22 +15,13 @@
  */
 
 import { NgModule } from '@angular/core';
-import {
-  BrowserModule,
-  BrowserTransferStateModule,
-} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BaristaModule } from './barista.module';
 import { KitchenSink } from './kitchen-sink/kitchen-sink';
 
 @NgModule({
   declarations: [KitchenSink],
-  imports: [
-    BrowserAnimationsModule,
-    BaristaModule,
-    BrowserModule.withServerTransition({ appId: 'barista-components' }),
-    BrowserTransferStateModule,
-  ],
+  imports: [BrowserAnimationsModule, BaristaModule],
   providers: [],
   bootstrap: [KitchenSink],
 })

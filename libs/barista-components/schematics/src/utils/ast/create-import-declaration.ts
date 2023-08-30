@@ -55,7 +55,6 @@ export function createImportDeclaration(
   }
 
   return ts.factory.createImportDeclaration(
-    undefined /** decorators */,
     undefined /** modifiers */,
     importClause,
     createStringLiteral(path, true),

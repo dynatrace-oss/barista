@@ -73,7 +73,7 @@ export function createTransformer(
 
     function visitDeclarationAndEntryComponentsAndRemoveUnused(
       node: Node,
-    ): Node | undefined {
+    ): Node {
       if (isSpreadElement(node)) {
         return importsFromExampleFile.length
           ? tsFactory.createIdentifier(importsFromExampleFile.join(', '))
@@ -88,7 +88,9 @@ export function createTransformer(
         !node.text.includes('DtExampleShared') &&
         !importsFromExampleFile.includes(node.text)
       ) {
-        return undefined;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        return undefined as Node;
       }
       // Replace examples that are not needed in this module
       return visitEachChild(
@@ -125,7 +127,9 @@ export function createTransformer(
         // Check if it is not any of the other relative imports we want to ditch.
         importFrom.split('/').length > 2
       ) {
-        return undefined;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        return undefined as Node;
       }
       // If the import is from the example component, remember the imports
       // as they will need to be in the declarations and definitions.
@@ -145,7 +149,7 @@ export function createTransformer(
     }
 
     /** Main visit function. */
-    function visit(node: Node): Node | undefined {
+    function visit(node: Node): Node {
       // Remove all import declarations that are not needed anymore.
       if (isImportDeclaration(node)) {
         return visitNode(
@@ -160,7 +164,9 @@ export function createTransformer(
       if (isVariableStatement(node)) {
         // If the variable statement is the declarations array, remove it.
         if (/DT_(.*?)_EXAMPLES/.test(node.getText())) {
-          return;
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          return undefined as Node;
         }
       }
 
@@ -200,7 +206,7 @@ export function createTransformer(
       }
       return visitEachChild(node, visit, context);
     }
-    return (node) => visitNode(node, visit);
+    return (node) => visitNode(node, visit) as SourceFile;
   };
   return transformer;
 }

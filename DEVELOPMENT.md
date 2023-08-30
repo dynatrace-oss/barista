@@ -129,19 +129,3 @@ If you want to run the design system itself including the demos embedded use
 ```
 npm run barista
 ```
-
-### Adding new examples
-
-To add a new example for a new or existing component, the
-[dt-component-example schematic](https://github.com/dynatrace-oss/barista/tree/master/tools/generators/dt-component-example)
-must be executed to generate the boilerplate code and register the example
-component:
-
-```
-nx workspace-schematic dt-component-example {name of your example} {name of your component}
-```
-
-You can also run this schematic from the Nx console.
-
-More information about shipped schematics can be found
-[here](https://github.com/dynatrace-oss/barista/tree/master/tools/generators).

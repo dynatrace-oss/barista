@@ -61,7 +61,7 @@ export function isOutsideMinMaxRange<T>(
   dateAdapter: DtDateAdapter<T>,
   min?: T | null,
   max?: T | null,
-  ignoreDay: boolean = false,
+  ignoreDay = false,
 ): boolean {
   const compareFct = ignoreDay
     ? (first: T, second: T) => dateAdapter.compareDateIgnoreDay(first, second)
@@ -124,7 +124,9 @@ export function isValid(
   }
 
   const parsedValue = parseInt(value, 10);
-  return parsedValue >= min && parsedValue <= max;
+  const parsedMin = typeof min === 'number' ? min : parseInt(min, 10);
+  const parsedMax = typeof max === 'number' ? max : parseInt(max, 10);
+  return parsedValue >= parsedMin && parsedValue <= parsedMax;
 }
 
 /** Check if a passed in value has at least two digits. */
