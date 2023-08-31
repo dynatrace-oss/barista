@@ -404,7 +404,7 @@ const getSlicesByParent = (
   nodes: DtSunburstChartTooltipData[],
   innerRadius: number,
   svgSettings = SVG_SETTINGS,
-  startAngle: number = 0,
+  startAngle = 0,
   endAngle: number = 2 * Math.PI,
 ): DtSunburstChartNodeSlice[] => {
   const slices = pie<DtSunburstChartTooltipData>()

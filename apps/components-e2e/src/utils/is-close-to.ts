@@ -16,7 +16,7 @@
 export function isCloseTo(
   value: number,
   expectation: number,
-  threshold: number = 3,
+  threshold = 3,
 ): boolean {
   const minExpectation = expectation - threshold;
   const maxExpectation = expectation + threshold;

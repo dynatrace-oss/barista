@@ -21,7 +21,7 @@
 export function clampTimestamp(
   timestamp: number,
   maxWidth: number,
-  minWidth: number = 0,
+  minWidth = 0,
 ): number {
   let clamped = timestamp;
 

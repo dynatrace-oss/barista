@@ -485,8 +485,8 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     function recurseSubkeys(
       obj: T,
       keyList: string[],
-      prefix: string = '',
-      maxLevels: number = 5,
+      prefix = '',
+      maxLevels = 5,
     ): void {
       //check for objects, expand properties into new columns
       for (let i = keyList.length - 1; i > -1; i--) {

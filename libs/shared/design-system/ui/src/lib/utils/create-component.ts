@@ -32,7 +32,7 @@ export function createComponent<T>(
   injector: Injector,
   placeholderElement: Element,
   projectableNodes: any[][] = [],
-  shouldRemovePlaceholder: boolean = true,
+  shouldRemovePlaceholder = true,
 ): ComponentRef<T> {
   const componentRef: ComponentRef<T> = viewContainerRef.createComponent(
     factory,

@@ -549,8 +549,8 @@ export function peekOptionId<T>(
 /** Generates a new option id for the provided node def. */
 export function generateOptionId(
   def: DtNodeDef<unknown>,
-  prefix: string = '',
-  prefixOnly: boolean = false,
+  prefix = '',
+  prefixOnly = false,
 ): string {
   const groupRef = def.option!.parentGroup
     ? `${def.option!.parentGroup.group!.label}${DELIMITER}`
@@ -563,8 +563,8 @@ export function generateOptionId(
 /** Generates and applies ids for the provided option and all its children. */
 export function applyDtOptionIds(
   def: DtNodeDef<unknown>,
-  prefix: string = '',
-  skipRootDef: boolean = false,
+  prefix = '',
+  skipRootDef = false,
 ): void {
   if (isDtOptionDef(def)) {
     // Reassigning is ok here as the prefix param is of type string

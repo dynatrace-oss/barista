@@ -15,14 +15,14 @@
  */
 
 /** Clamps a value to be between two numbers, by default 0 and 100. */
-export function clamp(v: number, min: number = 0, max: number = 100): number {
+export function clamp(v: number, min = 0, max = 100): number {
   return Math.max(min, Math.min(max, v));
 }
 
 /**
  * Rounding to a specific number of decimal spaces.
  */
-export function roundToDecimal(toRound: number, decimals: number = 5): number {
+export function roundToDecimal(toRound: number, decimals = 5): number {
   return (
     Math.round((toRound + Number.EPSILON) * 10 ** decimals) / 10 ** decimals
   );

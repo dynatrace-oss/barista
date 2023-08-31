@@ -1679,7 +1679,7 @@ export class DtFilterField<T = any>
    * Switches current def back to the root, updates all properties for the view and emits a filter change.
    * Is usually called when the user finishes a filter.
    */
-  private _switchToRootDef(shouldEmit: boolean = false): void {
+  private _switchToRootDef(shouldEmit = false): void {
     this._currentDef = this._rootDef;
     this._filterByLabel = '';
     this._updateControl();
@@ -1925,7 +1925,7 @@ export class DtFilterField<T = any>
     }
   }
 
-  private _resetFocusOnMultiSelectDef(doScroll: boolean = true): void {
+  private _resetFocusOnMultiSelectDef(doScroll = true): void {
     if (
       isDtMultiSelectDef(this._currentDef) &&
       this._multiSelect._keyManager.activeItemIndex !== -1

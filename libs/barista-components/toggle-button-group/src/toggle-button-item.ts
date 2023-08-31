@@ -192,7 +192,7 @@ export class DtToggleButtonItem<T>
   }
 
   /** Emits a selection change event. */
-  private _emitSelectionChangeEvent(isUserInput: boolean = false): void {
+  private _emitSelectionChangeEvent(isUserInput = false): void {
     this.change.emit({ source: this, value: this._value, isUserInput });
   }
 }

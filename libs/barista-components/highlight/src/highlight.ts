@@ -182,7 +182,7 @@ export class DtHighlight
   }
 
   /** The highlight function triggers the highlighting process if we are in a browser context. */
-  private _highlight(force: boolean = false): void {
+  private _highlight(force = false): void {
     // Make sure to only update the highlight if it is in the viewport.
     // This is needed because the highlight component can possibly be
     // rendered a lot if it is used for example in a big data table or autocomplete.

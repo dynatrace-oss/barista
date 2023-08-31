@@ -60,7 +60,7 @@ const TRANSFORMERS: BaPageTransformer[] = [
 /** Page-builder for Strapi CMS pages. */
 export const strapiBuilder: BaPageBuilder = async (
   globalTransformers: BaPageTransformer[],
-  next: boolean = false,
+  next = false,
   dsEnvironment: { distDir: string },
 ) => {
   // Return here if no endpoint is given.

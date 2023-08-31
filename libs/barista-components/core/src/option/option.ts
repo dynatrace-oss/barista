@@ -274,7 +274,7 @@ export class DtOption<T> implements Highlightable, AfterViewChecked, OnDestroy {
   }
 
   /** Emits the selection change event. */
-  private _emitSelectionChangeEvent(isUserInput: boolean = false): void {
+  private _emitSelectionChangeEvent(isUserInput = false): void {
     this.selectionChange.emit(new DtOptionSelectionChange(this, isUserInput));
   }
 }

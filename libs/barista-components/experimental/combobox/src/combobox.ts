@@ -644,7 +644,7 @@ export class DtCombobox<T>
   }
 
   /** Updates the selection by value using selection model and keymanager to handle the active item */
-  private _setSelectionByValue(value: T, triggered: boolean = true): void {
+  private _setSelectionByValue(value: T, triggered = true): void {
     // If value is being reset programmatically
     if (value === null && this._selectionModel) {
       // Deselect all values in the selection model

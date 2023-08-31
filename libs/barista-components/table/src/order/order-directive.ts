@@ -135,7 +135,7 @@ export class DtOrder<T>
   _order(
     previousIndex: number,
     currentIndex: number,
-    userTriggered: boolean = false,
+    userTriggered = false,
   ): void {
     if (this.disabled || !this._dropList?.data) {
       return;

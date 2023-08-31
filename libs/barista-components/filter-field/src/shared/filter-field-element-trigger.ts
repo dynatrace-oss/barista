@@ -237,7 +237,7 @@ export class DtFilterFieldElementTrigger<
   }
 
   /** Closes the filter-field element panel. */
-  closePanel(shouldEmit: boolean = true): void {
+  closePanel(shouldEmit = true): void {
     if (this._overlayRef && !this._overlayRef.hasAttached()) {
       return;
     }

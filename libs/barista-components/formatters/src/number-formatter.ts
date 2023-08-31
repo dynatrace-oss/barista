@@ -47,7 +47,7 @@ const DEFAULT_PRECISION_FOR_MIN_VALUE = 3;
  */
 export function adjustNumber(
   value: number,
-  abbreviate: boolean = false,
+  abbreviate = false,
   maxPrecision?: number,
 ): string {
   const calcValue = Math.abs(value);
