@@ -85,7 +85,7 @@ export class DtDateRange implements PipeTransform {
 export function dtFormatDateRange(
   start: number,
   end: number,
-  locale: string = 'en-US',
+  locale = 'en-US',
 ): string {
   if (isNaN(start) || isNaN(end)) {
     const startAndEnd = ` Start: ${start}, End: ${end}`;

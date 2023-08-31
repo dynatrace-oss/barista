@@ -402,7 +402,7 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
    * @param sidebarOpened the state the drawer should be toggled to – `'open' | 'close'`
    * Default the opposite of the current open state.
    */
-  toggleSidebar(sidebarOpened: boolean = !this.sidebarOpened): void {
+  toggleSidebar(sidebarOpened = !this.sidebarOpened): void {
     this._sidebarOpened = sidebarOpened;
   }
 

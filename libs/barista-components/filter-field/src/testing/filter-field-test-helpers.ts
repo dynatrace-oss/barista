@@ -106,8 +106,8 @@ export function setupFilterFieldTest(): FilterFieldTestContext {
    * filter field to the next state.
    */
   function advanceFilterfieldCycle(
-    simulateMicrotasks: boolean = true,
-    simulateZoneExit: boolean = true,
+    simulateMicrotasks = true,
+    simulateZoneExit = true,
   ): void {
     if (simulateMicrotasks) {
       zone!.simulateMicrotasksEmpty();

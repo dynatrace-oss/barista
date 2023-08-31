@@ -33,7 +33,7 @@ export function updateTimestampWithKeyboardEvent(
   event: KeyboardEvent,
   currentTimestamp: number,
   maxWidth: number,
-  minWidth: number = 0,
+  minWidth = 0,
 ): number {
   if (_readKeyCode(event) === END) {
     return maxWidth;

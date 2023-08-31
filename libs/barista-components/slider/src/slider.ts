@@ -302,7 +302,7 @@ export class DtSlider implements AfterViewInit, OnDestroy, OnInit {
   }
 
   /** Updates the value if the update is triggered by the consumer. */
-  private _updateValue(value: number, userTriggered: boolean = true): void {
+  private _updateValue(value: number, userTriggered = true): void {
     this._value = value;
     // We only need to update if the update is coming from outside the component.
     if (userTriggered) {

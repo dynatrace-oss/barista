@@ -72,8 +72,8 @@ export function dispatchKeyboardEvent(
 export function dispatchMouseEvent(
   node: Node | Window,
   type: string,
-  x: number = 0,
-  y: number = 0,
+  x = 0,
+  y = 0,
   event: MouseEvent = createMouseEvent(type, x, y),
 ): MouseEvent {
   return dispatchEvent(node, event) as MouseEvent;

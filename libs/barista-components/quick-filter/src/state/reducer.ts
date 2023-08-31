@@ -140,7 +140,7 @@ export function unsetFilterGroup(
 export function findSelectedOption(
   filters: DtAutocompleteValue<any>[][],
   uid: string | null,
-  distinct: boolean = false,
+  distinct = false,
 ): number {
   return filters.findIndex((path) => {
     if (!uid) {

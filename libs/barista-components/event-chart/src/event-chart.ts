@@ -551,10 +551,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
    * selected and the border around it should still encase the load event as
    * well. The path will be a rectangle with rounded corners.
    */
-  _calculateEventOutline(
-    renderEvent: RenderEvent<T>,
-    offset: number = 0,
-  ): string {
+  _calculateEventOutline(renderEvent: RenderEvent<T>, offset = 0): string {
     // eslint-disable-next-line no-magic-numbers
     const eventBubbleRadius = EVENT_BUBBLE_SIZE / 2 + offset;
 
@@ -592,10 +589,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     return path.join(' ');
   }
 
-  _calculateFieldOutline(
-    renderEvent: RenderField<T>,
-    offset: number = 0,
-  ): string {
+  _calculateFieldOutline(renderEvent: RenderField<T>, offset = 0): string {
     const eventBubbleRadius = FIELD_BUBBLE_SIZE + offset;
     const eventBubbleRadiusArcV = FIELD_BUBBLE_SIZE / 2;
     const eventBubbleRadiusArcH = eventBubbleRadiusArcV + offset / 2;
@@ -720,7 +714,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   }
 
   /** Creates the overlay and attaches it. */
-  private _createOverlay(isField: boolean, pin: boolean = false): void {
+  private _createOverlay(isField: boolean, pin = false): void {
     // If we do not have an overlay defined, we do not need to attach it
     if (isField) {
       if (!this._overlayHeatfield) {

@@ -18,7 +18,7 @@
 export function determineOverflowingItems<T>(
   containerRect: DOMRect,
   itemsWidthMap: Map<T, number>,
-  reservedSpace: number = 0,
+  reservedSpace = 0,
 ): T[] {
   // Calculate the sum of all item widths
   const totalItemWidth = Array.from(itemsWidthMap.values()).reduce(

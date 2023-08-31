@@ -279,7 +279,7 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
    * @param opened the state the drawer should be toggled to – `'open' | 'close'`
    * Default the opposite of the current open state.
    */
-  toggle(opened: boolean = !this.opened): void {
+  toggle(opened = !this.opened): void {
     this._opened = opened;
 
     // When the drawer is closed, we need to fix
