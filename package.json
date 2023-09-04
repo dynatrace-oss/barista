@@ -132,7 +132,7 @@
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "angular-testcafe": "^2.0.6",
-    "axe-core": "^4.4.3",
+    "axe-core": "^4.7.2",
     "axe-testcafe": "^3.0.0",
     "axios": "^0.21.3",
     "chalk": "^4.1.2",
