@@ -1,3 +1,14 @@
+## [15.0.0](https://github.com/dynatrace-oss/barista/compare/14.0.0...15.0.0) (2023-09-08)
+
+### BREAKING CHANGES
+
+- Update all Angular packages to version 15
+
+### Bug Fixes
+
+- **date-adapter:** Problem with `this` inside a function + unit tests
+  ([6776e6b](https://github.com/dynatrace-oss/barista/commit/6776e6beceac2a0d8f29f7e17c74f6a661bc5b91))
+
 ## [14.0.0](https://github.com/dynatrace-oss/barista/compare/11.0.0...14.0.0) (2023-08-28)
 
 ### BREAKING CHANGES
