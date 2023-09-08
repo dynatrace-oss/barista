@@ -31,7 +31,6 @@ import {
 import {
   GitClient,
   verifyLocalCommitsMatchUpstream,
-  verifyNoUncommittedChanges,
   verifyPassingGithubStatus,
 } from '../git';
 import { promptForNewVersion } from '../version';
@@ -77,8 +76,6 @@ export async function stageRelease(
   const newVersionName = newVersion.raw!;
   const needsVersionBump = newVersion.compare(currentVersion) !== 0;
   const stagingBranch = `release-stage/${newVersionName}`;
-
-  verifyNoUncommittedChanges(gitClient);
 
   // Branch that will be used to stage the release for the
   // new selected version.
