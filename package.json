@@ -169,7 +169,7 @@
     "memfs": "^3.4.1",
     "ng-packagr": "15.2.2",
     "nx": "15.9.4",
-    "patch-package": "^6.4.7",
+    "patch-package": "^8.0.0",
     "postcss": "^8.3.9",
     "postcss-import": "14.1.0",
     "postcss-preset-env": "7.5.0",
