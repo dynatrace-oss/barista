@@ -1,3 +1,9 @@
+## [16.0.0](https://github.com/dynatrace-oss/barista/compare/15.0.0...16.0.0) (2023-09-12)
+
+### BREAKING CHANGES
+
+- Update all Angular packages to version 16
+
 ## [15.0.0](https://github.com/dynatrace-oss/barista/compare/14.0.0...15.0.0) (2023-09-08)
 
 ### BREAKING CHANGES
