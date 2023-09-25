@@ -101,7 +101,7 @@
     "@nguniversal/builders": "16.2.0",
     "@nguniversal/express-engine": "16.2.0",
     "@nx/jest": "16.7.4",
-    "@nx/js": "16.7.4",
+    "@nx/js": "16.9.0",
     "@nx/plugin": "16.7.4",
     "@nx/workspace": "16.7.4",
     "@octokit/rest": "^18.6.7",
