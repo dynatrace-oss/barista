@@ -68,7 +68,7 @@
     "@dynatrace/barista-fonts": "^1.0.0",
     "@dynatrace/barista-icons": "^7.17.0",
     "@nguniversal/common": "16.2.0",
-    "@nx/devkit": "16.7.4",
+    "@nx/devkit": "16.9.1",
     "@swc/helpers": "~0.5.0",
     "ansi-colors": "^4.1.1",
     "core-js": "^3.24.1",
