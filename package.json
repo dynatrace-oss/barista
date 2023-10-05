@@ -169,7 +169,7 @@
     "ng-packagr": "16.2.2",
     "nx": "16.7.4",
     "patch-package": "^6.4.7",
-    "postcss": "^8.3.9",
+    "postcss": "^8.4.31",
     "postcss-import": "15.1.0",
     "postcss-preset-env": "7.5.0",
     "postcss-url": "10.1.3",
