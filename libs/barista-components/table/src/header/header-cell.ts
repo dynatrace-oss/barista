@@ -61,7 +61,11 @@ export class DtHeaderCell implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._destroy.next();
-    this._destroy.complete();
+    // Exhaustively check if the subjects still exist during the onDestroy
+    // ADES-5588
+    if (this._destroy) {
+      this._destroy.next();
+      this._destroy.complete();
+    }
   }
 }

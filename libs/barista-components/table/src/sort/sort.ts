@@ -103,7 +103,8 @@ export class DtSort
 
   /** Event emitted when the user changes either the active sort or sort direction. */
   @Output('dtSortChange')
-  readonly sortChange: EventEmitter<DtSortEvent> = new EventEmitter<DtSortEvent>();
+  readonly sortChange: EventEmitter<DtSortEvent> =
+    new EventEmitter<DtSortEvent>();
 
   /** Sets the active sort id and determines the new sort direction. */
   sort(sortable: DtSortHeader): void;
@@ -172,8 +173,14 @@ export class DtSort
   }
 
   ngOnDestroy(): void {
-    this._stateChanges.complete();
-    this._initialized.complete();
+    // Exhaustively check if the subjects still exist during the onDestroy
+    // ADES-5588
+    if (this._stateChanges) {
+      this._stateChanges.complete();
+    }
+    if (this._initialized) {
+      this._initialized.complete();
+    }
   }
 }
 
