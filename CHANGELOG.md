@@ -1,3 +1,10 @@
+## [16.0.1](https://github.com/dynatrace-oss/barista/compare/16.0.0...16.0.1) (2023-11-02)
+
+### Bug Fixes
+
+- **table:** Fixes an issue with ngDestroy timings.
+  ([d08cf15](https://github.com/dynatrace-oss/barista/commit/d08cf15774f5031bab2e765d49bbbbd3ce01e96b))
+
 ## [16.0.0](https://github.com/dynatrace-oss/barista/compare/15.0.0...16.0.0) (2023-09-12)
 
 ### BREAKING CHANGES
