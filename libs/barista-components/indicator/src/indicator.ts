@@ -88,10 +88,18 @@ export class DtIndicator
   }
 
   ngOnChanges(): void {
-    this._stateChanges.next();
+    // Exhaustively check if the subjects still exist during the onDestroy
+    // ADES-5588
+    if (this._stateChanges) {
+      this._stateChanges.next();
+    }
   }
 
   ngOnDestroy(): void {
-    this._stateChanges.complete();
+    // Exhaustively check if the subjects still exist during the onDestroy
+    // ADES-5588
+    if (this._stateChanges) {
+      this._stateChanges.complete();
+    }
   }
 }
