@@ -1,3 +1,11 @@
+## [16.0.2](https://github.com/dynatrace-oss/barista/compare/16.0.1...16.0.2) (2024-01-22)
+
+### Bug Fixes
+
+- **indicator:** Exhaustively check for valid stateChanges subject before
+  completing it.
+  ([68fc726](https://github.com/dynatrace-oss/barista/commit/68fc7260959a5495cf0adc3627a30966fec08a63))
+
 ## [16.0.1](https://github.com/dynatrace-oss/barista/compare/16.0.0...16.0.1) (2023-11-02)
 
 ### Bug Fixes
