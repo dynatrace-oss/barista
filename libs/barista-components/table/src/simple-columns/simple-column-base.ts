@@ -181,7 +181,7 @@ export abstract class DtSimpleColumnBase<T>
 
   ngOnInit(): void {
     this._syncColumnDefName();
-    if (this.table) {
+    if (this.table && this._columnDef) {
       this._columnDef.cell = this._cellDef;
       this._columnDef.headerCell = this._headerDef;
       this.table.addColumnDef(this._columnDef);
