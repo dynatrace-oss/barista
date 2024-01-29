@@ -78,6 +78,8 @@ interface SimpleColumnsAccessorMaps<T> {
   comparatorMap: Map<string, DtSimpleColumnComparatorFunction<T>>;
 }
 
+const DOWNLOAD_DELIMITER = '◬';
+
 let nextUniqueId = 0;
 @Component({
   selector: 'dt-table',
@@ -432,13 +434,23 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
 
     recurseSubkeys(exportData[0], keys);
     // header row
-    csvObj.csv += keys.join(',') + '\n';
+    csvObj.csv +=
+      keys
+        .map((headerKey) => {
+          // Restore the value with separated `.` in the final output csv
+          const delimiterReplace = new RegExp(`${DOWNLOAD_DELIMITER}`, 'g');
+          return headerKey.replace(delimiterReplace, '.');
+        })
+        .join(',') + '\n';
 
     for (const row of exportData) {
       for (let idx = 0; idx < keys.length; idx++) {
         const key = keys[idx];
         let val: unknown;
-        if (key.includes('.') && typeof row[key] == 'undefined') {
+        if (
+          key.includes(DOWNLOAD_DELIMITER) &&
+          typeof row[key] == 'undefined'
+        ) {
           val = deepObjectAccess(row, key);
         } else {
           val = row[key];
@@ -503,15 +515,19 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
           for (const subkey of Object.keys(val)) {
             const subval = val[subkey];
             const subprefix = prefix.length
-              ? `${prefix}.${key}.${subkey}`
-              : `${key}.${subkey}`;
+              ? `${prefix}${DOWNLOAD_DELIMITER}${key}${DOWNLOAD_DELIMITER}${subkey}`
+              : `${key}${DOWNLOAD_DELIMITER}${subkey}`;
             if (maxLevels && typeof subval == 'object') {
               const subsubkeys = Object.keys(subval);
               recurseSubkeys(subval, subsubkeys, subprefix, maxLevels - 1);
               for (const subsubkey of subsubkeys)
-                if (['object', 'undefined'].includes(typeof subval[subsubkey]))
+                if (
+                  ['object', 'undefined'].includes(typeof subval[subsubkey])
+                ) {
                   subkeys.push(subsubkey);
-                else subkeys.push(`${subprefix}.${subsubkey}`);
+                } else {
+                  subkeys.push(`${subprefix}${DOWNLOAD_DELIMITER}${subsubkey}`);
+                }
             } else {
               subkeys.push(subprefix);
             }
@@ -523,14 +539,17 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
 
     /** @internal Access a deep property from an object structure using a dotted key, as built by recurseSubkeys() */
     function deepObjectAccess(obj: T, key: string): string {
-      if (key.includes('.')) {
-        const keyArr = key.split('.');
+      if (key.includes(DOWNLOAD_DELIMITER)) {
+        const keyArr = key.split(DOWNLOAD_DELIMITER);
         const first = keyArr.shift() || '';
         const subObj = obj[first];
-        if (typeof subObj == 'object')
-          return deepObjectAccess(subObj, keyArr.join('.'));
-        else if (typeof subObj == 'undefined') return '';
-        else return subObj.toString();
+        if (typeof subObj == 'object') {
+          return deepObjectAccess(subObj, keyArr.join(DOWNLOAD_DELIMITER));
+        } else if (typeof subObj == 'undefined') {
+          return '';
+        } else {
+          return subObj.toString();
+        }
       } else {
         return obj[key];
       }
@@ -599,7 +618,9 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
         const cells = rowEl.querySelectorAll('.dt-cell');
         for (let j = 0; j < cells.length; j++) {
           //if excluded, skip
-          if (!keys.includes(columns[j])) continue;
+          if (!keys.includes(columns[j])) {
+            continue;
+          }
           //if an expandable cell, treat as blank, otherwise get text from cell
           const txt = cells[j].matches('.dt-expandable-cell')
             ? ''
