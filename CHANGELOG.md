@@ -1,3 +1,12 @@
+## [16.0.3](https://github.com/dynatrace-oss/barista/compare/16.0.2...16.0.3)(2024-01-31)
+
+### Bug Fixes
+
+- **table:** Allow table export to csv for keys with '.'
+  ([924528a](https://github.com/dynatrace-oss/barista/commit/924528a2c61b4e99735a6cbee3471fc1d72a148a))
+- **table:** Fixes an issue with cell access.
+  ([2e52159](https://github.com/dynatrace-oss/barista/commit/2e52159492d93112035e6980f17f202d3fae9776))
+
 ## [16.0.2](https://github.com/dynatrace-oss/barista/compare/16.0.1...16.0.2) (2024-01-22)
 
 ### Bug Fixes
