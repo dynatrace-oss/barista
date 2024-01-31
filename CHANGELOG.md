@@ -1,4 +1,4 @@
-## [16.0.3](https://github.com/dynatrace-oss/barista/compare/16.0.2...16.0.3)(2024-01-31)
+## [16.0.3](https://github.com/dynatrace-oss/barista/compare/16.0.2...16.0.3) (2024-01-31)
 
 ### Bug Fixes
 
