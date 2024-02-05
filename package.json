@@ -92,7 +92,7 @@
     "@angular/cli": "~16.2.0",
     "@angular/compiler": "16.2.2",
     "@angular/compiler-cli": "16.2.2",
-    "@angular/language-service": "16.2.2",
+    "@angular/language-service": "17.1.2",
     "@angular/platform-browser-dynamic": "16.2.2",
     "@angular/platform-server": "16.2.2",
     "@angular/router": "16.2.2",
