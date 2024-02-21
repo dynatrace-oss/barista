@@ -4,7 +4,6 @@
 version: 2.1
 
 orbs:
-  sonarcloud: sonarsource/sonarcloud@1.0.1
   snyk: snyk/snyk@1.1.2
   nx: nrwl/nx@1.1.1
   # win: circleci/windows@2.2.0
@@ -138,19 +137,6 @@ jobs:
           root: ~/barista
           paths:
             - .
-
-  # - sonar checks
-  sonar:
-    executor: buildpack
-    environment:
-      # - sonar needs more memory for the scanner run if a LOT of files are changed
-      SONAR_SCANNER_OPTS: -Xmx1024m
-    steps:
-      - skip_for_forked_pull_requests
-      - attach_workspace:
-          at: ~/barista
-      - sonarcloud/scan
-
   # - snyk security checks
   security-checks:
     executor: buildpack
@@ -350,11 +336,6 @@ workflows:
           <<: *filter_branches
           context: barista
       - check-formatting:
-          context: barista
-          requires:
-            - install
-      - sonar:
-          # SONAR_TOKEN is needed for sonar cloud checks
           context: barista
           requires:
             - install
