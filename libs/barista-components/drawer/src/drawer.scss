@@ -8,7 +8,6 @@
   position: relative;
   transform: translate3d(-100%, 0, 0);
   outline: none;
-  will-change: transform;
   // drawer backdrop has a z-index of 2
   z-index: 3;
 
