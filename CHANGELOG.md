@@ -1,3 +1,10 @@
+## [16.0.4](https://github.com/dynatrace-oss/barista/compare/16.0.3...16.0.4) (2024-02-26)
+
+### Bug Fixes
+
+- **drawer:** Removed no longer necessary will-change property from the drawer.
+  ([3a4492f](https://github.com/dynatrace-oss/barista/commit/3a4492ffa64b7a87f04b758b5f9bb3d7f1ce5d6b))
+
 ## [16.0.3](https://github.com/dynatrace-oss/barista/compare/16.0.2...16.0.3) (2024-01-31)
 
 ### Bug Fixes
