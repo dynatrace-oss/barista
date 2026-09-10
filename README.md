@@ -1,3 +1,7 @@
+> ⚠️ **Archived**
+>
+> This project is no longer actively maintained. The repository remains available for reference, but no additional features, fixes, or support should be expected.
+
 # Barista components and design system
 
 [![CircleCI](https://circleci.com/gh/dynatrace-oss/barista/tree/master.svg?style=svg)](https://circleci.com/gh/dynatrace-oss/barista/tree/master)
